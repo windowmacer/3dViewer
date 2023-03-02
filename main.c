@@ -16,6 +16,5 @@ int	main(int ac, char **av) {
 	} 
 	else
 		errorExit("No argument!\n");
-
 	return (0);
 }

@@ -25,15 +25,17 @@ typedef struct pointInSpace {
 typedef struct stRoot {
 	int32_t		countVertex;
 	int32_t		countFacets;
-	vertex		*thread;
+	vertex		*head;
 
 } structRoot;
 
 vertex			*newNode(int index);
+void			addNode(vertex *current, vertex *newNode);
 void			errorExit(char *s);
 int				openFile(char *filename);
 void			parcer(char *nameFile, structRoot *pattern);
 void			nullType(structRoot *pattern);
 void			fillingNode(int fd, structRoot *pattern);
+char			*get_next_line(int fd);
 
 #endif
