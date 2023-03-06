@@ -9,27 +9,35 @@
 # include <string.h>
 
 typedef struct pointInSpace {
-	double					x;
-	double					y;
-	double					z;
-	int32_t					index;
-	int32_t					connectWithN;
-	struct pointInSpace		*connectWithS;
-	struct pointInSpace		*next;
-	struct pointInSpace		*prev;
-	struct stRoot			*sRoot;
+	double							x;
+	double							y;
+	double							z;
+	uint32_t						index;
+	int32_t							connectWithN;
+	struct pointInSpace				*connectWithS;
+	struct pointInSpace				*next;
+	struct pointInSpace				*prev;
+	struct stRoot					*sRoot;
 
 } vertex;
 
+typedef struct polygonInSpace {
+	int32_t						*vertexes;
+	uint32_t					numbVertexes;
+	struct polygonInSpace		*next;
+	struct stRoot				*sRoot;
+
+} facets;
 
 typedef struct stRoot {
-	int32_t		countVertex;
-	int32_t		countFacets;
-	vertex		*head;
+	uint32_t		countVertex;
+	uint32_t		countFacets;
+	vertex			*head;
+	facets			*polygons;
 
 } structRoot;
 
-vertex			*newNode(int index);
+vertex			*newNode(int index, structRoot *pattern);
 void			addNode(vertex *current, vertex *newNode);
 void			errorExit(char *s);
 int				openFile(char *filename);

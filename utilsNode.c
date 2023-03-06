@@ -1,6 +1,6 @@
 #include "headerCAD.h"
 
-vertex	*newNode(int index) {
+vertex	*newNode(int index, structRoot *pattern) {
 	vertex	*new;
 
 	new = malloc(sizeof(vertex));
@@ -10,6 +10,7 @@ vertex	*newNode(int index) {
 	new->y = -3.141592;
 	new->z = -3.141592;
 	new->index = index;
+	new->sRoot = pattern;
 	new->connectWithN = 0;
 	new->connectWithS = NULL;
 	new->next = NULL;

@@ -25,7 +25,6 @@ void	charToDouble(char *line, vertex *list) {
 }
 
 int32_t	tokenSearch(char *line, vertex *list) {
-	int32_t		i = 0;
 
 	for (int32_t i = 0; (line[i] != 0 && line[i] != '\n'); i++) {
 		if (line[i] == ' ')
@@ -44,7 +43,7 @@ int32_t	tokenSearch(char *line, vertex *list) {
 	return (0);
 }
 
-vertex	*searchList(int32_t index, vertex *list) {
+vertex	*searchList(int32_t index, vertex *list) { // index =- 1
 	int32_t		quantity;
 	int32_t		currentIndex;
 	vertex		*temp;
@@ -69,46 +68,44 @@ vertex	*searchList(int32_t index, vertex *list) {
     return (temp);
 }
 
-void	untanglingThreads(char *line, vertex *list) {
+int32_t	counterPolygon(char *line) {
+	int32_t		count = 0;
+	char		*ptr = strtok(line, " \n");
+	while(ptr != NULL)
+	{
+		ptr = strtok(NULL, " \n");
+		count++;
+	}
+	return(count);
+}
+
+void	untanglingThreads(char *line, structRoot *pattern) {
 	int32_t		count = 0;
 	int32_t		numb = 0;
 	int32_t		temp = 0;
-	vertex		*tmpNode;
-	vertex		*buf;
+	int32_t		sum = counterPolygon(line);
+	int32_t		str[sum + 1];
 	char		*ptr = strtok(line, " \n");
 
 	temp = atoi(ptr);
 	while(ptr != NULL)
 	{
 		numb = atoi(ptr);
-		if (count > 0) {
-			list->connectWithN = numb;;
-			buf = list;
-		}
-		list = searchList(numb - 1, list);
-		if (count > 0)
-			buf->connectWithS = list;
-		else
-			tmpNode	= list;
+		str[count] = numb;
 		ptr = strtok(NULL, " \n");
 		count++;
 	}
-	list->connectWithN = temp;
-	list->connectWithS = tmpNode;
-	list->sRoot->countFacets++;
+	str[count] = temp;
+	pattern->countFacets++;
 }
 
 void	loopingNode(vertex *list) {
 	vertex		*temp;
 	vertex		*initial;
 	
-	if (list->x == -3.141592)
-	{
-		temp = list->prev;
-		free(list);
-	} else {
-		temp = list;
-	}
+	temp = list->prev;
+	free(list);
+	
 	initial = list->sRoot->head;
 	initial->prev = temp;
 	temp->next = initial;
@@ -121,16 +118,15 @@ void	fillingNode(int fd, structRoot *pattern) {
 	vertex		*temp;
 	char		*line;
 
-	list = newNode(0);
+	list = newNode(0, pattern);
 	pattern->head = list;
 	while (i >= 0 && key >= 0) {
 		line = get_next_line(fd);
 		if (line == 0)
 			break ;
-		list->sRoot = pattern;
 		key = tokenSearch(line, list);
 		if (key == 1) {
-			temp = newNode(i);
+			temp = newNode(i, pattern);
 			addNode(list, temp);
 			list = temp;
 			i++;
@@ -141,7 +137,7 @@ void	fillingNode(int fd, structRoot *pattern) {
 			i = 0;
 		}
 		if (key == 2)
-			untanglingThreads(&(line[i + 2]), list);
+			untanglingThreads(&(line[i + 2]), pattern);
 	}
 	if (i != 0)
 		loopingNode(list);
