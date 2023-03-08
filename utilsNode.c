@@ -18,6 +18,18 @@ vertex	*newNode(int index, structRoot *pattern) {
 	return (new);
 }
 
+facets	*newNodePolygon(structRoot *pattern) {
+	facets *new;
+
+	new = malloc(sizeof(facets));
+	if (!new)
+		return (NULL);
+	new->sRoot = pattern;
+	new->next = NULL;
+	new->numbVertexes = 0;
+	return (new);
+}
+
 void	addNode(vertex *current, vertex *newNode) {
 
 	current->next = newNode;

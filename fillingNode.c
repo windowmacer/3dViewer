@@ -5,6 +5,8 @@ void	nullType(structRoot *pattern) {
 	pattern->countVertex = 0;
 	pattern->countFacets = 0;
 	pattern->head = NULL;
+	pattern->polygons = NULL;
+	pattern->initialSurface = NULL;
 }
 
 void	charToDouble(char *line, vertex *list) {
@@ -71,8 +73,7 @@ vertex	*searchList(int32_t index, vertex *list) { // index =- 1
 int32_t	counterPolygon(char *line) {
 	int32_t		count = 0;
 	char		*ptr = strtok(line, " \n");
-	while(ptr != NULL)
-	{
+	while (ptr != NULL)	{
 		ptr = strtok(NULL, " \n");
 		count++;
 	}
@@ -83,13 +84,22 @@ void	untanglingThreads(char *line, structRoot *pattern) {
 	int32_t		count = 0;
 	int32_t		numb = 0;
 	int32_t		temp = 0;
-	int32_t		sum = counterPolygon(line);
+	facets		*surface;
+	char		*s = strdup(line);
+	int32_t		sum = counterPolygon(s);
 	int32_t		str[sum + 1];
 	char		*ptr = strtok(line, " \n");
 
 	temp = atoi(ptr);
-	while(ptr != NULL)
-	{
+	surface = newNodePolygon(pattern);
+	if (pattern->polygons == NULL) {
+		pattern->polygons = surface;
+		pattern->initialSurface = surface;
+	} else {
+		pattern->polygons->next = surface;
+		pattern->polygons = surface;
+	}
+	while (ptr != NULL) {
 		numb = atoi(ptr);
 		str[count] = numb;
 		ptr = strtok(NULL, " \n");
@@ -97,6 +107,9 @@ void	untanglingThreads(char *line, structRoot *pattern) {
 	}
 	str[count] = temp;
 	pattern->countFacets++;
+	surface->vertexes = str;
+	surface->numbVertexes = sum + 1;
+	free(s);
 }
 
 void	loopingNode(vertex *list) {

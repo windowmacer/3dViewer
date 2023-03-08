@@ -33,11 +33,13 @@ typedef struct stRoot {
 	uint32_t		countVertex;
 	uint32_t		countFacets;
 	vertex			*head;
+	facets			*initialSurface;
 	facets			*polygons;
 
 } structRoot;
 
 vertex			*newNode(int index, structRoot *pattern);
+facets			*newNodePolygon(structRoot *pattern);
 void			addNode(vertex *current, vertex *newNode);
 void			errorExit(char *s);
 int				openFile(char *filename);
