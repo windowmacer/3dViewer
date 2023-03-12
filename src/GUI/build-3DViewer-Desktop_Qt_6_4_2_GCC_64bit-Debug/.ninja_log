@@ -1,0 +1,27 @@
+# ninja log v5
+0	126	1678645892497332292	3DViewer_autogen/timestamp	5e37d29ceb127dd5
+0	126	1678645892497332292	3DViewer_autogen/mocs_compilation.cpp	5e37d29ceb127dd5
+0	126	1678645892497332292	/home/lunarskii/project/C8_3DViewer_v1.0-1/src/GUI/build-3DViewer-Desktop_Qt_6_4_2_GCC_64bit-Debug/3DViewer_autogen/timestamp	5e37d29ceb127dd5
+0	126	1678645892497332292	/home/lunarskii/project/C8_3DViewer_v1.0-1/src/GUI/build-3DViewer-Desktop_Qt_6_4_2_GCC_64bit-Debug/3DViewer_autogen/mocs_compilation.cpp	5e37d29ceb127dd5
+126	840	1678645893209366072	CMakeFiles/3DViewer.dir/3DViewer_autogen/mocs_compilation.cpp.o	8be1d7e5f31ed37d
+126	861	1678645893229367021	CMakeFiles/3DViewer.dir/main.cpp.o	e43a77d789a3c4c5
+126	910	1678645893281369488	CMakeFiles/3DViewer.dir/viewer.cpp.o	f869b23f581dcf2d
+910	1071	1678645893441377080	3DViewer	9e13a6614b40cc55
+1	8	1678646013591491266	3DViewer_autogen/timestamp	5e37d29ceb127dd5
+1	8	1678646013591491266	3DViewer_autogen/mocs_compilation.cpp	5e37d29ceb127dd5
+1	8	1678646013591491266	/home/lunarskii/project/C8_3DViewer_v1.0-1/src/GUI/build-3DViewer-Desktop_Qt_6_4_2_GCC_64bit-Debug/3DViewer_autogen/timestamp	5e37d29ceb127dd5
+1	8	1678646013591491266	/home/lunarskii/project/C8_3DViewer_v1.0-1/src/GUI/build-3DViewer-Desktop_Qt_6_4_2_GCC_64bit-Debug/3DViewer_autogen/mocs_compilation.cpp	5e37d29ceb127dd5
+9	760	1678646014343532707	CMakeFiles/3DViewer.dir/viewer.cpp.o	f869b23f581dcf2d
+760	920	1678646014499541303	3DViewer	9e13a6614b40cc55
+1	8	1678646039552917902	3DViewer_autogen/timestamp	5e37d29ceb127dd5
+1	8	1678646039552917902	3DViewer_autogen/mocs_compilation.cpp	5e37d29ceb127dd5
+1	8	1678646039552917902	/home/lunarskii/project/C8_3DViewer_v1.0-1/src/GUI/build-3DViewer-Desktop_Qt_6_4_2_GCC_64bit-Debug/3DViewer_autogen/timestamp	5e37d29ceb127dd5
+1	8	1678646039552917902	/home/lunarskii/project/C8_3DViewer_v1.0-1/src/GUI/build-3DViewer-Desktop_Qt_6_4_2_GCC_64bit-Debug/3DViewer_autogen/mocs_compilation.cpp	5e37d29ceb127dd5
+8	740	1678646040284958014	CMakeFiles/3DViewer.dir/viewer.cpp.o	f869b23f581dcf2d
+740	898	1678646040440966560	3DViewer	9e13a6614b40cc55
+1	8	1678646147314759862	3DViewer_autogen/timestamp	5e37d29ceb127dd5
+1	8	1678646147314759862	3DViewer_autogen/mocs_compilation.cpp	5e37d29ceb127dd5
+1	8	1678646147314759862	/home/lunarskii/project/C8_3DViewer_v1.0-1/src/GUI/build-3DViewer-Desktop_Qt_6_4_2_GCC_64bit-Debug/3DViewer_autogen/timestamp	5e37d29ceb127dd5
+1	8	1678646147314759862	/home/lunarskii/project/C8_3DViewer_v1.0-1/src/GUI/build-3DViewer-Desktop_Qt_6_4_2_GCC_64bit-Debug/3DViewer_autogen/mocs_compilation.cpp	5e37d29ceb127dd5
+8	756	1678646148062800003	CMakeFiles/3DViewer.dir/viewer.cpp.o	f869b23f581dcf2d
+756	919	1678646148222808588	3DViewer	9e13a6614b40cc55
