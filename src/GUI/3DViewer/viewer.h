@@ -15,6 +15,9 @@ public:
     viewer(QWidget *parent = nullptr);
     ~viewer();
 
+private slots:
+    void on_pushButton_selectFile_clicked();
+
 private:
     Ui::viewer *ui;
 };

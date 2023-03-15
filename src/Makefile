@@ -5,11 +5,11 @@ VALGRIND_FLAGS	= --log-file="valgrind.txt" --track-origins=yes --trace-children=
 CHECK_FLAGS		= $(shell pkg-config --cflags --libs check)
 
 LIBRARY			= 3dviewer.a
-APP_NAME		= 
+APP_NAME		= 3DViewer
 SRC_PROJECT		= $(wildcard Backend/logic/*.c)
 SRC_TEST		= $(wildcard Backend/tests/*.c)
-OBJ_PROJECT		= $(SRC_PROJECT:c=o)
-OBJ_TEST		= $(SRC_TEST:c=o)
+OBJ_PROJECT		= $(SRC_PROJECT:.c=.o)
+OBJ_TEST		= $(SRC_TEST:.c=.o)
 
 all: install launch_app gcov_report uninstall clean
 
@@ -56,8 +56,8 @@ gcov_report: clean $(OBJ_TEST)
 $(OBJ_TEST):
 	$(CC) $(CFLAGS) -c $(SRC_TEST)
 
-%.o: %.c
- 	$(CC) $(CFLAGS) -c $< -o $@
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -rf test

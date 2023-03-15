@@ -17,6 +17,7 @@ set(PROJECT_SOURCES
         viewer.cpp
         viewer.h
         viewer.ui
+        resources.qrc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
