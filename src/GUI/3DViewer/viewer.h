@@ -3,6 +3,14 @@
 
 #include <QMainWindow>
 
+//#ifdef __cplusplus
+//extern "C" {
+//    #endif
+//    #include ""
+//    #ifdef __cplusplus
+//}
+//#endif
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class viewer; }
 QT_END_NAMESPACE
@@ -17,8 +25,12 @@ public:
 
 private slots:
     void on_pushButton_selectFile_clicked();
+    void moving();
+    void rotation();
+    void scaling();
 
 private:
     Ui::viewer *ui;
+
 };
 #endif // VIEWER_H

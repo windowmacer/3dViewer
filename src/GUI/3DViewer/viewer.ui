@@ -48,20 +48,17 @@
      <property name="title">
       <string> FILE INFO</string>
      </property>
-     <widget class="QWidget" name="verticalLayoutWidget">
+     <widget class="QLabel" name="label_1">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>20</y>
         <width>201</width>
-        <height>151</height>
+        <height>25</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QLabel" name="label_1">
-         <property name="styleSheet">
-          <string notr="true">QLabel {
+      <property name="styleSheet">
+       <string notr="true">QLabel {
 	font: 700 16pt &quot;Pastelova Demo&quot;;
 	qproperty-alignment: 'AlignVCenter | AlignCenter';
 	border-radius: 0px;
@@ -69,32 +66,89 @@
 	border-top: 1px solid grey;
 	color: rgb(94, 92, 100);
 }</string>
-         </property>
-         <property name="text">
-          <string>FIle name</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="fileName">
-         <property name="styleSheet">
-          <string notr="true">QLabel {
+      </property>
+      <property name="text">
+       <string>FIle name</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="fileName">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>45</y>
+        <width>201</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
 	font: 700 14pt &quot;Pastelova Demo&quot;;
 	qproperty-alignment: 'AlignVCenter | AlignCenter';
 	border-radius: 0px;
 	border-top: 0px solid grey;
 	color: rgb(0, 0, 0);
 }</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_9">
-         <property name="styleSheet">
-          <string notr="true">QLabel {
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>70</y>
+        <width>201</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+	font: 700 16pt &quot;Pastelova Demo&quot;;
+	qproperty-alignment: 'AlignVCenter | AlignCenter';
+	border-radius: 0px;
+	border-bottom: 0px solid grey;
+	border-top: 0px solid grey;
+	color: rgb(94, 92, 100);
+}</string>
+      </property>
+      <property name="text">
+       <string>Number of vertices</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="numberOfVertices">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>95</y>
+        <width>201</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+	font: 700 14pt &quot;Pastelova Demo&quot;;
+	qproperty-alignment: 'AlignVCenter | AlignCenter';
+	border-radius: 0px;
+	border-top: 0px solid grey;
+	color: rgb(0, 0, 0);
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>120</y>
+        <width>201</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
 	
 	font: 700 16pt &quot;Pastelova Demo&quot;;
 	qproperty-alignment: 'AlignVCenter | AlignCenter';
@@ -103,50 +157,22 @@
 	border-top: 0px solid grey;
 	color: rgb(94, 92, 100);
 }</string>
-         </property>
-         <property name="text">
-          <string>Number of vertices</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="numberOfVertices">
-         <property name="styleSheet">
-          <string notr="true">QLabel {
-	font: 700 14pt &quot;Pastelova Demo&quot;;
-	qproperty-alignment: 'AlignVCenter | AlignCenter';
-	border-radius: 0px;
-	border-top: 0px solid grey;
-	color: rgb(0, 0, 0);
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_11">
-         <property name="styleSheet">
-          <string notr="true">QLabel {
-	
-	font: 700 16pt &quot;Pastelova Demo&quot;;
-	qproperty-alignment: 'AlignVCenter | AlignCenter';
-	border-radius: 0px;
-	border-bottom: 0px solid grey;
-	border-top: 0px solid grey;
-	color: rgb(94, 92, 100);
-}</string>
-         </property>
-         <property name="text">
-          <string>Number of edges</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="numberOfEdges">
-         <property name="styleSheet">
-          <string notr="true">QLabel {
+      </property>
+      <property name="text">
+       <string>Number of edges</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="numberOfEdges">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>146</y>
+        <width>201</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
 	font: 700 14pt &quot;Pastelova Demo&quot;;
 	qproperty-alignment: 'AlignVCenter | AlignCenter';
 	border-top: 0px solid grey;
@@ -155,13 +181,10 @@
 	border-top-left-radius:0px;
 	color: rgb(0, 0, 0);
 }</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
      </widget>
     </widget>
     <widget class="QPushButton" name="pushButton_selectFile">
@@ -892,6 +915,9 @@ QPushButton:pressed {
        <string notr="true">font: 700 12pt &quot;Pastelova Demo&quot;;
 background-color: rgb(246, 245, 244);</string>
       </property>
+      <property name="value">
+       <number>5</number>
+      </property>
      </widget>
     </widget>
     <widget class="QGroupBox" name="groupBox_scaling">
@@ -954,7 +980,7 @@ QPushButton:pressed {
        <string>-</string>
       </property>
      </widget>
-     <widget class="QSpinBox" name="scaling">
+     <widget class="QSpinBox" name="scale">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -1416,6 +1442,9 @@ border-bottom-left-radius:0px;
 }
 </string>
       </property>
+      <property name="value">
+       <number>1</number>
+      </property>
      </widget>
      <widget class="QLabel" name="label">
       <property name="geometry">
@@ -1687,6 +1716,9 @@ border-bottom-left-radius:0px;
 }
 </string>
       </property>
+      <property name="value">
+       <number>1</number>
+      </property>
      </widget>
      <widget class="QLabel" name="label_8">
       <property name="geometry">
@@ -1839,19 +1871,6 @@ border-bottom-left-radius:0px;
       </widget>
      </widget>
     </widget>
-   </widget>
-   <widget class="QLabel" name="picture">
-    <property name="geometry">
-     <rect>
-      <x>1060</x>
-      <y>0</y>
-      <width>861</width>
-      <height>1051</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
