@@ -1,5 +1,6 @@
 #include "viewer.h"
 #include "./ui_viewer.h"
+// #include "../Backend/logic/headerCAD.h"
 
 #include <QFileDialog>
 
@@ -44,6 +45,8 @@ void viewer::on_pushButton_selectFile_clicked() {
     char *path = (filePath.toLocal8Bit()).data();
 
     // parse function
+	structRoot model;
+	parcer(path, &model);
 
     ui->fileName->setText((QFileInfo (filePath)).fileName());
 //    ui->numberOfVertices->setText(QString::number(model.vertices));
