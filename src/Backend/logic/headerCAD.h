@@ -5,6 +5,7 @@
 # include <unistd.h>
 # include <errno.h>
 # include <stdlib.h>
+# include <stdint.h>
 # include <fcntl.h>
 # include <string.h>
 

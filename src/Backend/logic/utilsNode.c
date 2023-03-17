@@ -42,7 +42,7 @@ void	closeCircularList(vertex *head, vertex *tail) {
 	head->prev = tail;
 }
 
-void	findMinMax(structRoot *root, double **coord, char c) {
+void	findMinMax(structRoot *root, double (*coord)[2], char c) {
 	vertex *current = root->head;
 	double compare;
 	double min;
@@ -61,7 +61,7 @@ void	findMinMax(structRoot *root, double **coord, char c) {
 		max = current->z;
 	}
 
-	for (int32_t i = 1; i < root->countVertex; i++) {
+	for (uint32_t i = 1; i < root->countVertex; i++) {
 		if (c == 'x')
 			compare = current->x;
 		else if (c == 'y')
@@ -93,7 +93,7 @@ void	findCenter(structRoot *root) {
 	center[2] = coord_z[0] + (coord_z[1] - coord_z[0]) / 2;
 
 	current = root->head;
-	for (int32_t i = 1; i < root->countVertex; i++) {
+	for (uint32_t i = 1; i < root->countVertex; i++) {
 		current->x -= center[0];
 		current->y -= center[1];
 		current->z -= center[2];
