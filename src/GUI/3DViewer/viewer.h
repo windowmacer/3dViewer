@@ -29,8 +29,12 @@ private slots:
     void rotation();
     void scaling();
 
+    void on_testButton_clicked();
+
 private:
     Ui::viewer *ui;
 
+    // background colors in rgb format
+    float r_color_background;
 };
 #endif // VIEWER_H

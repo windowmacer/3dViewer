@@ -2,6 +2,8 @@
 #include "./ui_viewer.h"
 
 #include <QFileDialog>
+#include <QColorDialog>
+#include <QColor>
 
 #define X 1
 #define Y 2
@@ -124,3 +126,8 @@ void viewer::scaling() {
 
     update();
 }
+
+void viewer::on_testButton_clicked() {
+    QColor color = QColorDialog::getColor(Qt::white, this);
+}
+
