@@ -47,7 +47,6 @@ void viewer::on_pushButton_selectFile_clicked() {
     char *path = (filePath.toLocal8Bit()).data();
 
     // parse function
-	structRoot model;
 	parcer(path, &model);
 
     ui->fileName->setText((QFileInfo (filePath)).fileName());

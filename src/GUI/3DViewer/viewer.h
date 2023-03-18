@@ -3,13 +3,13 @@
 
 #include <QMainWindow>
 
-//#ifdef __cplusplus
-//extern "C" {
-//    #endif
-//    #include ""
-//    #ifdef __cplusplus
-//}
-//#endif
+#ifdef __cplusplus
+extern "C" {
+   #endif
+   #include "../../Backend/logic/headerCAD.h"
+   #ifdef __cplusplus
+}
+#endif
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class viewer; }
@@ -33,6 +33,9 @@ private slots:
 
 private:
     Ui::viewer *ui;
+
+    // model
+    structRoot model;
 
     // background colors in rgb format
     float r_color_background;
