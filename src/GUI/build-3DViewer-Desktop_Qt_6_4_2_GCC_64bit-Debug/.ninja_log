@@ -1,0 +1,16 @@
+# ninja log v5
+0	120	1679146782898351087	/home/lunarskii/project/3dViewer/src/GUI/build-3DViewer-Desktop_Qt_6_4_2_GCC_64bit-Debug/3DViewer_autogen/mocs_compilation.cpp	4fb7d1e47500280b
+0	120	1679146782898351087	3DViewer_autogen/mocs_compilation.cpp	4fb7d1e47500280b
+0	120	1679146782898351087	3DViewer_autogen/timestamp	4fb7d1e47500280b
+120	809	1679146783590384975	CMakeFiles/3DViewer.dir/3DViewer_autogen/mocs_compilation.cpp.o	8ac226d80ee52ef7
+120	819	1679146783598385366	CMakeFiles/3DViewer.dir/main.cpp.o	8d6be84f7ece726c
+120	1115	1679146783894399860	CMakeFiles/3DViewer.dir/viewer.cpp.o	37aac5760579dab5
+0	120	1679146782898351087	/home/lunarskii/project/3dViewer/src/GUI/build-3DViewer-Desktop_Qt_6_4_2_GCC_64bit-Debug/3DViewer_autogen/timestamp	4fb7d1e47500280b
+1	121	1679146855437908835	3DViewer_autogen/timestamp	4fb7d1e47500280b
+1	121	1679146855437908835	3DViewer_autogen/mocs_compilation.cpp	4fb7d1e47500280b
+1	121	1679146855437908835	/home/lunarskii/project/3dViewer/src/GUI/build-3DViewer-Desktop_Qt_6_4_2_GCC_64bit-Debug/3DViewer_autogen/timestamp	4fb7d1e47500280b
+1	121	1679146855437908835	/home/lunarskii/project/3dViewer/src/GUI/build-3DViewer-Desktop_Qt_6_4_2_GCC_64bit-Debug/3DViewer_autogen/mocs_compilation.cpp	4fb7d1e47500280b
+121	801	1679146856121942436	CMakeFiles/3DViewer.dir/3DViewer_autogen/mocs_compilation.cpp.o	84484410a14a8757
+121	819	1679146856137943222	CMakeFiles/3DViewer.dir/main.cpp.o	1f2f56475722f8f8
+122	1116	1679146856433957762	CMakeFiles/3DViewer.dir/viewer.cpp.o	50e6dabb0fc3e463
+1116	1295	1679146856613966606	3DViewer	2357cdb8d60b0dce
