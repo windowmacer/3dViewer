@@ -53,7 +53,7 @@ void viewer::on_pushButton_selectFile_clicked() {
 //    ui->numberOfVertices->setText(QString::number(model.vertices));
 //    ui->numberOfEdges->setText(QString::number(model.edges));
 
-    update();
+    // update();
 }
 
 void viewer::moving() {
