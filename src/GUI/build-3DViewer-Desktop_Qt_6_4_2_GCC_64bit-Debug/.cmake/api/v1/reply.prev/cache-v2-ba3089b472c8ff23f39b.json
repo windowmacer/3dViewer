@@ -6472,6 +6472,30 @@
 			],
 			"type" : "INTERNAL",
 			"value" : "1"
+		},
+		{
+			"name" : "viewer_lib",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/home/lunarskii/project/3dViewer/src/GUI/3DViewer/lib3dviewer.a"
+		},
+		{
+			"name" : "viewer_lib_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for viewer_lib."
+				}
+			],
+			"type" : "PATH",
+			"value" : "viewer_lib_DIR-NOTFOUND"
 		}
 	],
 	"kind" : "cache",

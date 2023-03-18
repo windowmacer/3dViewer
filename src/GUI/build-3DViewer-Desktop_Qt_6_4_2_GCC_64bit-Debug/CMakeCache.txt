@@ -357,6 +357,9 @@ XKB_LIBRARY:FILEPATH=XKB_LIBRARY-NOTFOUND
 //Path to a library.
 viewer_lib:FILEPATH=/home/lunarskii/project/3dViewer/src/GUI/3DViewer/lib3dviewer.a
 
+//The directory containing a CMake configuration file for viewer_lib.
+viewer_lib_DIR:PATH=viewer_lib_DIR-NOTFOUND
+
 
 ########################
 # INTERNAL cache entries
