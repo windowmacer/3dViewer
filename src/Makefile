@@ -8,7 +8,7 @@ LIBRARY			= 3dviewer.a
 APP_NAME		= 3DViewer
 SRC_PROJECT		= $(wildcard Backend/logic/*.c)
 SRC_TEST		= $(wildcard Backend/tests/*.c)
-OBJ_PROJECT		= $(SRC_PROJECT:.c=.o)
+OBJ_PROJECT		= fillingNode.o get_next_line.o parserOBJ.o utilsNode.o # $(SRC_PROJECT:.c=.o)
 OBJ_TEST		= $(SRC_TEST:.c=.o)
 
 all: install launch_app gcov_report uninstall clean
@@ -21,7 +21,7 @@ install: $(LIBRARY)
 
 uninstall: clean
 	rm -rf build
-	rm -rf ../GUI/3DViewer/lib$(LIBRARY)
+	rm -rf GUI/3DViewer/lib$(LIBRARY)
 	rm -rf $(APP_NAME)
 	rm -rf $(APP_NAME).tar.gz
 
