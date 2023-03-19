@@ -21,7 +21,8 @@ int	openFile(char *filename) {
 
 	fd = open(filename, O_RDONLY);
 	if (fd <= 0)
-		errorExit("Fail open file!\n");
+		// errorExit("Fail open file!\n");
+		exit(1);
 	return (fd);
 }
 
@@ -31,7 +32,8 @@ int	checkType(char *nameFile) {
 
 	len = strlen(nameFile);
 	if (!checkOBJ(nameFile, ".obj", len))
-		errorExit("File extension error!\n");
+		// errorExit("File extension error!\n");
+		exit(1);
 	fd = openFile(nameFile);
 	return (fd);
 }
