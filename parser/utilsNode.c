@@ -42,6 +42,49 @@ void	closeCircularList(vertex *head, vertex *tail) {
 	head->prev = tail;
 }
 
+int	freeNode(structRoot *pattern) {
+	vertex		*temp = NULL;
+	facets		*list = NULL;
+	facets		*del = NULL;
+	
+	if (pattern->countVertex == 0) {
+		return (1);
+	} else if (pattern->countVertex > 1) {
+		temp = pattern->head->next;
+	}
+
+	while (pattern->countVertex) {
+		if (pattern->countVertex > 1) {
+			temp = temp->next;
+			free(temp->prev);
+		} else {
+			// free(temp);
+			break ;
+		}
+		pattern->countVertex--;
+	}
+
+	if (pattern->countFacets == 0) {
+		return (1);
+	} else if (pattern->countFacets > 1) {
+		list = pattern->initialSurface;
+	} else {
+		free(pattern->initialSurface);
+	}
+
+	while (list != NULL) {
+		del = list;
+		list = list->next;
+		free(del);
+		if (list == pattern->polygons) {
+			free(list);
+			break ;
+		}
+	}
+	
+	return(0);
+}
+
 void	findMinMax(structRoot *root, double (*coord)[2], char c) {
 	vertex *current = root->head;
 	double compare;
@@ -98,21 +141,4 @@ void	findCenter(structRoot *root) {
 		current->y -= center[1];
 		current->z -= center[2];
 	}
-}
-
-void	makeVertexCoordArray(structRoot	*root) { //Переделать и оригинальные координаты в флоут?
-	float		*vertexCoord = (float *)malloc(sizeof(float) * root->countVertex * 3);
-	vertex		*current = root->head;
-
-	for (uint32_t i = 0; i < root->countVertex; i += 3) {
-		vertexCoord[i] = (float)current->x;
-		vertexCoord[i + 1] = (float)current->y;
-		vertexCoord[i + 2] = (float)current->z;
-		current = current->next;
-	}
-	root->vertexCoord = vertexCoord;
-}
-
-void	countLines(structRoot	*root) {
-	
 }

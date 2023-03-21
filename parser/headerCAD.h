@@ -31,26 +31,24 @@ typedef struct polygonInSpace {
 } facets;
 
 typedef struct stRoot {
-	float			*vertexCoord;
-	int32_t			*lineIndex;
-	uint32_t		countLines;
-
 	uint32_t		countVertex;
 	uint32_t		countFacets;
 	vertex			*head;
 	facets			*initialSurface;
 	facets			*polygons;
+
 } structRoot;
 
 vertex			*newNode(int index, structRoot *pattern);
 facets			*newNodePolygon(structRoot *pattern);
 void			addNode(vertex *current, vertex *newNode);
-// void			errorExit(char *s); 
-int				openFile(char *filename);
+void			errorExit(char *s, structRoot *root);
+int				freeNode(structRoot *pattern);
+int				openFile(char *filename, structRoot *root);
+int				checkType(char *nameFile, structRoot *root);
 void			parcer(char *nameFile, structRoot *pattern);
 void			nullType(structRoot *pattern);
 void			fillingNode(int fd, structRoot *pattern);
-void			makeVertexCoordArray(structRoot	*root);
 char			*get_next_line(int fd);
 
 #endif

@@ -48,4 +48,5 @@ void parcer(char *nameFile, structRoot *pattern)
 	fd = checkType(nameFile);
 	nullType(pattern);
 	fillingNode(fd, pattern);
+	makeVertexCoordArray(&pattern);
 }

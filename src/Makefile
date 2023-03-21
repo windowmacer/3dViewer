@@ -9,7 +9,7 @@ APP_NAME		= 3DViewer
 SRC_PROJECT		= $(wildcard Backend/logic/*.c)
 SRC_TEST		= $(wildcard Backend/tests/*.c)
 OBJ_PROJECT		= fillingNode.o get_next_line.o parserOBJ.o utilsNode.o # $(SRC_PROJECT:.c=.o)
-OBJ_TEST		= $(SRC_TEST:.c=.o)
+OBJ_TEST		= test_core.o test_parser.o # $(SRC_TEST:.c=.o)
 
 all: install launch_app gcov_report uninstall clean
 
