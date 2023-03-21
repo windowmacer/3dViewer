@@ -32,7 +32,7 @@ typedef struct polygonInSpace {
 
 typedef struct stRoot {
 	float			*vertexCoord;
-	int32_t			*lineIndex;
+	uint32_t		*vertexIndex; 
 	uint32_t		countLines;
 
 	uint32_t		countVertex;

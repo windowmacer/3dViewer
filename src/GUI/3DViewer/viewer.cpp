@@ -85,7 +85,7 @@ void viewer::paintGL() {
 			glEnable(GL_LINE_STRIPPLE);
 		}
 		else glDisable(GL_LINE_STRIPPLE);
-		glDrawElements(GL_LINES, model.countLines, GL_UNSIGNED_INT, model.lineIndex); //переработать парсер
+		glDrawElements(GL_LINES, model.countLines, GL_UNSIGNED_INT, model.vertexIndex); //переработать парсер
 		glDisableClientState(Gl_VERTEX_ARRAY);
 		if (vertex_visibility == 1) pointSettings();
 	}

@@ -32,7 +32,7 @@ private slots:
     void on_testButton_clicked();
 
 private:
-    Ui::viewer *ui;
+	Ui::viewer *ui;
 	structRoot model; // model
 	
 	void 	initializeGL() override;
@@ -51,7 +51,7 @@ private:
 	float	r_color_background, g_color_background, b_color_background; // background colors in rgb format
 	float	r_color_point, g_color_point, b_color_point; // color of the points
 	float	r_color_edge, g_color_edge, b_color_edge; // color of the edges of a model
-	float	edge_width;
+	float	edge_width; 
 	int		edge_type, point_type, point_visibility;
 };
 #endif // VIEWER_H
