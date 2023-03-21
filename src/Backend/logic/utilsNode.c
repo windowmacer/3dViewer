@@ -113,6 +113,6 @@ void	makeVertexCoordArray(structRoot	*root) { //Переделать и ориг
 	root->vertexCoord = vertexCoord;
 }
 
-void	countLines(structRoot	*root) {
+// void	countLines(structRoot	*root) {
 	
-}
+// }
