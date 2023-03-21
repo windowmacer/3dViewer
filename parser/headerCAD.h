@@ -1,0 +1,54 @@
+#ifndef HEADERCAD_H
+# define HEADERCAD_H
+
+# include <stdio.h>
+# include <unistd.h>
+# include <errno.h>
+# include <stdlib.h>
+# include <stdint.h>
+# include <fcntl.h>
+# include <string.h>
+
+typedef struct pointInSpace {
+	double							x;
+	double							y;
+	double							z;
+	uint32_t						index;
+	int32_t							connectWithN;
+	struct pointInSpace				*connectWithS;
+	struct pointInSpace				*next;
+	struct pointInSpace				*prev;
+	struct stRoot					*sRoot;
+
+} vertex;
+
+typedef struct polygonInSpace {
+	int32_t						*vertexes;
+	uint32_t					numbVertexes;
+	struct polygonInSpace		*next;
+	struct stRoot				*sRoot;
+
+} facets;
+
+typedef struct stRoot {
+	uint32_t		countVertex;
+	uint32_t		countFacets;
+	vertex			*head;
+	facets			*initialSurface;
+	facets			*polygons;
+
+} structRoot;
+
+vertex			*newNode(int index, structRoot *pattern);
+facets			*newNodePolygon(structRoot *pattern);
+void			addNode(vertex *current, vertex *newNode);
+void			errorExit(char *s, structRoot *root);
+int				freeNode(structRoot *pattern);
+int				openFile(char *filename, structRoot *root);
+int				checkType(char *nameFile, structRoot *root);
+void			parcer(char *nameFile, structRoot *pattern);
+void			nullType(structRoot *pattern);
+void			fillingNode(int fd, structRoot *pattern);
+char			*get_next_line(int fd);
+
+#endif
