@@ -224,3 +224,5 @@ void viewer::scaling() {
 
     update();
 }
+
+

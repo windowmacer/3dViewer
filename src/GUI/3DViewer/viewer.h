@@ -2,6 +2,7 @@
 #define VIEWER_H
 
 // #include <QMainWindow>
+#include <QWidget>
 #include <QOpenGLWidget>
 #include <QFileDialog>
 #include <QColorDialog>
