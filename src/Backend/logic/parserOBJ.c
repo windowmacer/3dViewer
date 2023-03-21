@@ -1,8 +1,9 @@
 #include "headerCAD.h"
 
-int	checkOBJ(char *name, char *ber, int len) {
-	int		i;
-	int		j;
+int checkOBJ(char *name, char *ber, int len)
+{
+	int i;
+	int j;
 
 	i = len - 4;
 	j = 0;
@@ -16,28 +17,33 @@ int	checkOBJ(char *name, char *ber, int len) {
 	return (1);
 }
 
-int	openFile(char *filename) {
-	int	fd;
+int openFile(char *filename)
+{
+	int fd;
 
 	fd = open(filename, O_RDONLY);
 	if (fd <= 0)
-		errorExit("Fail open file!\n");
+		// errorExit("Fail open file!\n");
+		exit(1);
 	return (fd);
 }
 
-int	checkType(char *nameFile) {
-	int		fd;
-	int		len;
+int checkType(char *nameFile)
+{
+	int fd;
+	int len;
 
 	len = strlen(nameFile);
 	if (!checkOBJ(nameFile, ".obj", len))
-		errorExit("File extension error!\n");
+		// errorExit("File extension error!\n");
+		exit(1);
 	fd = openFile(nameFile);
 	return (fd);
 }
 
-void	parcer(char *nameFile, structRoot *pattern) {
-	int				fd;
+void parcer(char *nameFile, structRoot *pattern)
+{
+	int fd;
 
 	fd = checkType(nameFile);
 	nullType(pattern);
