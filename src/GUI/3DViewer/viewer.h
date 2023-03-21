@@ -1,7 +1,11 @@
 #ifndef VIEWER_H
 #define VIEWER_H
 
-#include <QMainWindow>
+// #include <QMainWindow>
+#include <QOpenGLWidget>
+#include <QFileDialog>
+#include <QColorDialog>
+#include <QColor>
 
 #ifdef __cplusplus
 extern "C" {
@@ -15,8 +19,8 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class viewer; }
 QT_END_NAMESPACE
 
-class viewer : public QOpenGLWidget
-{
+// public QMainWindow
+class viewer : public QOpenGLWidget {
     Q_OBJECT
 
 public:
@@ -29,8 +33,6 @@ private slots:
     void rotation();
     void scaling();
 
-    void on_testButton_clicked();
-
 private:
     Ui::viewer *ui;
 	structRoot model; // model
@@ -41,17 +43,19 @@ private:
 
 	void 	pointSettings();
 	void	applyNewSettings();
-	void	setBackgroundColor();
-	void	setEdgesColor();
+    void    setColor();
 
-	void	point
+    // void	point;
 	float	x_angle, y_angle, z_angle;
 	int		paint_mode;
 
-	float	r_color_background, g_color_background, b_color_background; // background colors in rgb format
-	float	r_color_point, g_color_point, b_color_point; // color of the points
-	float	r_color_edge, g_color_edge, b_color_edge; // color of the edges of a model
+    // colors // нужно будет в конструкторе сразу инициализировать какими-то начальными значениями, для того чтобы и фон, и модель не была белой
+    QColor backgroundColor;
+    QColor edgeColor;
+    QColor vertexColor;
+
 	float	edge_width;
 	int		edge_type, point_type, point_visibility;
 };
+
 #endif // VIEWER_H
