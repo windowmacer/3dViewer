@@ -99,3 +99,20 @@ void	findCenter(structRoot *root) {
 		current->z -= center[2];
 	}
 }
+
+void	makeVertexCoordArray(structRoot	*root) { //Переделать и оригинальные координаты в флоут?
+	float		*vertexCoord = (float *)malloc(sizeof(float) * root->countVertex * 3);
+	vertex		*current = root->head;
+
+	for (uint32_t i = 0; i < root->countVertex; i += 3) {
+		vertexCoord[i] = (float)current->x;
+		vertexCoord[i + 1] = (float)current->y;
+		vertexCoord[i + 2] = (float)current->z;
+		current = current->next;
+	}
+	root->vertexCoord = vertexCoord;
+}
+
+void	countLines(structRoot	*root) {
+	
+}
