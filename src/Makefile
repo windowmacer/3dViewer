@@ -80,7 +80,7 @@ valgrind: rebuild
 
 clang:
 	clang-format --style=google -i Backend/logic/*
-	clang-format --style=google -i Backedn/tests/*
+	clang-format --style=google -i Backend/tests/*
 	clang-format --style=google -i GUI/3DViewer/*.cpp
 	clang-format --style=google -i GUI/3DViewer/*.h
 
