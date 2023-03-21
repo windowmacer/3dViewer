@@ -35,7 +35,7 @@ private slots:
     void scaling();
 
 private:
-    Ui::viewer *ui;
+	Ui::viewer *ui;
 	structRoot model; // model
 	
 	void 	initializeGL() override;

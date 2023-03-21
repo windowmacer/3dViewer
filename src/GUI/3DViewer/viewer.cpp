@@ -57,36 +57,36 @@ void viewer::resizeGL(int w, int h) {
 }
 
 void viewer::paintGL() {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glVertexPointer(3, GL_FLOAT, 0, model.vertexCoord);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    if (paint_mode == 0) applyNewSettings();
-    else if (paint_mode == 1 || paint_mode == 2) {
-        if (paint_mode == 1) {
-            glOrtho(-5, 5, -5, 5, 1, 15); //значения поменять?
-            glTranslated(0, 0, -10);
-        }
-        else if (paint_mode == 2) {
-            glFrustum(-1, 1, -1, 1, 1, 15);
-            glTranslated(0, 0, -10);
-        }
-        glRotated(x_angle, 1, 0, 0);
-        glRotated(y_angle, 0, 1, 0);
-        glRotated(z_angle, 0, 0, 1);
-        glClearColor(r_color_background, g_color_background, b_color_background, 1.0);
-        glColor3f(r_color_edge, g_color_edge, b_color_edge);
-        glLineWidth(edge_width);
-        if (edge_type == 1) {
-            glLineStripple(1, 0x3333); //поиграться со значениями
-            glEnable(GL_LINE_STRIPPLE);
-        }
-        else glDisable(GL_LINE_STRIPPLE);
-        glDrawElements(GL_LINES, model.countLines, GL_UNSIGNED_INT, model.lineIndex); //переработать парсер
-        glDisableClientState(Gl_VERTEX_ARRAY);
-        if (vertex_visibility == 1) pointSettings();
-    }
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glVertexPointer(3, GL_FLOAT, 0, model.vertexCoord);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	if (paint_mode == 0) applyNewSettings();
+	else if (paint_mode == 1 || paint_mode == 2) {
+		if (paint_mode == 1) {
+			glOrtho(-5, 5, -5, 5, 1, 15); //значения поменять?
+			glTranslated(0, 0, -10);
+		} 
+		else if (paint_mode == 2) {
+			glFrustum(-1, 1, -1, 1, 1, 15);
+			glTranslated(0, 0, -10);
+		}
+		glRotated(x_angle, 1, 0, 0);
+		glRotated(y_angle, 0, 1, 0);
+		glRotated(z_angle, 0, 0, 1);
+		glClearColor(r_color_background, g_color_background, b_color_background, 1.0);
+		glColor3f(r_color_edge, g_color_edge, b_color_edge);
+		glLineWidth(edge_width);
+		if (edge_type == 1) {
+			glLineStripple(1, 0x3333); //поиграться со значениями
+			glEnable(GL_LINE_STRIPPLE);
+		}
+		else glDisable(GL_LINE_STRIPPLE);
+		glDrawElements(GL_LINES, model.countLines, GL_UNSIGNED_INT, model.vertexIndex); //переработать парсер
+		glDisableClientState(Gl_VERTEX_ARRAY);
+		if (vertex_visibility == 1) pointSettings();
+	}
 }
 
 void viewer::pointSettings() {
