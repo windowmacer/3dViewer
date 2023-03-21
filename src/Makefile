@@ -41,7 +41,7 @@ $(LIBRARY): $(SRC_PROJECT)
 	ar rc $(LIBRARY) $(OBJ_PROJECT)
 	ranlib $(LIBRARY)
 
-test: $(LIBRARY) $(OBJ_TEST)
+tests: $(LIBRARY) $(OBJ_TEST)
 	$(CC) $(CFLAGS) $(GCOV_FLAGS) $(OBJ_TEST) -o test $(LIBRARY) $(CHECK_FLAGS)
 	./test
 
