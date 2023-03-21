@@ -1,0 +1,144 @@
+#include "headerCAD.h"
+
+vertex	*newNode(int index, structRoot *pattern) {
+	vertex	*new;
+
+	new = malloc(sizeof(vertex));
+	if (!new)
+		return (NULL);
+	new->x = -3.141592;
+	new->y = -3.141592;
+	new->z = -3.141592;
+	new->index = index;
+	new->sRoot = pattern;
+	new->connectWithN = 0;
+	new->connectWithS = NULL;
+	new->next = NULL;
+	new->prev = NULL;
+	return (new);
+}
+
+facets	*newNodePolygon(structRoot *pattern) {
+	facets *new;
+
+	new = malloc(sizeof(facets));
+	if (!new)
+		return (NULL);
+	new->sRoot = pattern;
+	new->next = NULL;
+	new->numbVertexes = 0;
+	return (new);
+}
+
+void	addNode(vertex *current, vertex *newNode) {
+
+	current->next = newNode;
+	newNode->prev = current;
+}
+
+void	closeCircularList(vertex *head, vertex *tail) {
+
+	tail->next = head;
+	head->prev = tail;
+}
+
+int	freeNode(structRoot *pattern) {
+	vertex		*temp = NULL;
+	facets		*list = NULL;
+	facets		*del = NULL;
+	
+	if (pattern->countVertex == 0) {
+		return (1);
+	} else if (pattern->countVertex > 1) {
+		temp = pattern->head->next;
+	}
+
+	while (pattern->countVertex) {
+		if (pattern->countVertex > 1) {
+			temp = temp->next;
+			free(temp->prev);
+		} else {
+			// free(temp);
+			break ;
+		}
+		pattern->countVertex--;
+	}
+
+	if (pattern->countFacets == 0) {
+		return (1);
+	} else if (pattern->countFacets > 1) {
+		list = pattern->initialSurface;
+	} else {
+		free(pattern->initialSurface);
+	}
+
+	while (list != NULL) {
+		del = list;
+		list = list->next;
+		free(del);
+		if (list == pattern->polygons) {
+			free(list);
+			break ;
+		}
+	}
+	
+	return(0);
+}
+
+void	findMinMax(structRoot *root, double (*coord)[2], char c) {
+	vertex *current = root->head;
+	double compare;
+	double min;
+	double max;
+
+	if (c == 'x') {
+		min = current->x;
+		max = current->x;
+	}
+	else if (c == 'y') {
+		min = current->y;
+		max = current->y;
+	}
+	else if (c == 'z') {
+		min = current->z;
+		max = current->z;
+	}
+
+	for (uint32_t i = 1; i < root->countVertex; i++) {
+		if (c == 'x')
+			compare = current->x;
+		else if (c == 'y')
+			compare = current->y;
+		else if (c == 'z')
+			compare = current->z;
+		if (min > compare)
+			min = compare;
+		if (max < compare)
+			max = compare;
+		current = current->next;
+	}
+	*coord[0] = min;
+	*coord[1] = max;
+}
+
+void	findCenter(structRoot *root) {
+	vertex *current;
+	double 	center[3];
+	double 	coord_x[2];
+	double 	coord_y[2];
+	double 	coord_z[2];
+
+	findMinMax(root, &coord_x, 'x');
+	findMinMax(root, &coord_y, 'y');
+	findMinMax(root, &coord_z, 'z');
+	center[0] = coord_x[0] + (coord_x[1] - coord_x[0]) / 2;
+	center[1] = coord_y[0] + (coord_y[1] - coord_y[0]) / 2;
+	center[2] = coord_z[0] + (coord_z[1] - coord_z[0]) / 2;
+
+	current = root->head;
+	for (uint32_t i = 1; i < root->countVertex; i++) {
+		current->x -= center[0];
+		current->y -= center[1];
+		current->z -= center[2];
+	}
+}

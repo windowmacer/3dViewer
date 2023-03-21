@@ -3,7 +3,7 @@
 
 #include <check.h>
 
-// 3dviewer library
+#include "../logic/headerCAD.h"
 
 Suite *st_parse(void);
 
