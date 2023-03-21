@@ -85,7 +85,8 @@ void	untanglingThreads(char *line, structRoot *pattern) {
 	int32_t		numb = 0;
 	int32_t		temp = 0;
 	facets		*surface;
-	char		*s = strdup(line);
+	// char		*s = strdup(line);
+	char *s = line;
 	int32_t		sum = counterPolygon(s);
 	int32_t		str[sum + 1];
 	char		*ptr = strtok(line, " \n");
@@ -109,7 +110,7 @@ void	untanglingThreads(char *line, structRoot *pattern) {
 	pattern->countFacets++;
 	surface->vertexes = str;
 	surface->numbVertexes = sum + 1;
-	free(s);
+	// free(s);
 }
 
 void	loopingNode(vertex *list) {
