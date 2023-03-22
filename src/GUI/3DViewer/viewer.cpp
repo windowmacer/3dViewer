@@ -126,12 +126,12 @@ void viewer::paintGL() {
 		glLineWidth(edge_width);
 		if (edge_type == 1) {
 			glLineStripple(1, 0x3333); //поиграться со значениями
-			glEnable(GL_LINE_STRIPPLE);
+			glEnable(GL_LINE_STIPPLE);
 		}
-		else glDisable(GL_LINE_STRIPPLE);
+		else glDisable(GL_LINE_STIPPLE);
 		glDrawElements(GL_LINES, model.countLines, GL_UNSIGNED_INT, model.vertexIndex); //переработать парсер
-		glDisableClientState(Gl_VERTEX_ARRAY);
-		if (vertex_visibility == 1) pointSettings();
+		glDisableClientState(GL_VERTEX_ARRAY);
+		if (point_visibility == 1) pointSettings();
 	}
 }
 
