@@ -60,7 +60,6 @@ private:
     void    saveSettings();
     void    restoreSettings();
 
-    // void	point; // Вань, разберись что это и для чего
 	float	x_angle, y_angle, z_angle;
 	int		paint_mode;
 
