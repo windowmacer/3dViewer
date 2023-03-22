@@ -37,6 +37,8 @@ viewer::viewer(QWidget *parent) : QOpenGLWidget(parent), ui(new Ui::viewer)
 
 viewer::~viewer()
 {
+    // сохранить настройки программы
+    // очистить все, для чего выделялась память, если выделялась
     delete ui;
 }
 
@@ -225,4 +227,14 @@ void viewer::scaling() {
     update();
 }
 
+void viewer::saveAsJPEG() {
 
+}
+
+void viewer::saveAsBMP() {
+
+}
+
+void viewer::saveAsGIF() {
+
+}

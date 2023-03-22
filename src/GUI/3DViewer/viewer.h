@@ -45,6 +45,9 @@ private:
 	void 	pointSettings();
 	void	applyNewSettings();
     void    setColor();
+    void    saveAsJPEG();
+    void    saveAsBMP();
+    void    saveAsGIF();
 
     // void	point;
 	float	x_angle, y_angle, z_angle;
