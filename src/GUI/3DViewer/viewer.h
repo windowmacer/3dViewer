@@ -2,11 +2,13 @@
 #define VIEWER_H
 
 // #include <QMainWindow>
-#include <QWidget>
-#include <QOpenGLWidget>
-#include <QFileDialog>
-#include <QColorDialog>
-#include <QColor>
+
+#include <QWidget>          // library for using widgets
+#include <QOpenGLWidget>    // library for using widgets
+#include <QColor>           // library for using colors
+#include <QFileDialog>      // library for dialog windows
+#include <QColorDialog>     // library for dialog windows
+#include <QSettings>
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,25 +37,34 @@ private slots:
     void scaling();
 
 private:
-	Ui::viewer *ui;
-	structRoot model; // model
+    Ui::viewer *ui;     // ui object of the viewer class
+    structRoot model;   // model
 	
+    // model rendering methods
 	void 	initializeGL() override;
 	void 	resizeGL(int w, int h) override;
 	void 	paintGL() override;
 
+    //
 	void 	pointSettings();
 	void	applyNewSettings();
     void    setColor();
+
+    // methods for saving images
     void    saveAsJPEG();
     void    saveAsBMP();
     void    saveAsGIF();
 
-    // void	point;
+    //
+    QSettings *lastSettings;
+    void    saveSettings();
+    void    restoreSettings();
+
+    // void	point; // Вань, разберись что это и для чего
 	float	x_angle, y_angle, z_angle;
 	int		paint_mode;
 
-    // colors // нужно будет в конструкторе сразу инициализировать какими-то начальными значениями, для того чтобы и фон, и модель не была белой
+    // colors
     QColor backgroundColor;
     QColor edgeColor;
     QColor vertexColor;
