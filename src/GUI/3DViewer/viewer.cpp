@@ -77,8 +77,8 @@ void viewer::paintGL() {
 		glRotated(x_angle, 1, 0, 0);
 		glRotated(y_angle, 0, 1, 0);
 		glRotated(z_angle, 0, 0, 1);
-		glClearColor(r_color_background, g_color_background, b_color_background, 1.0);
-		glColor3f(r_color_edge, g_color_edge, b_color_edge);
+		glClearColor(backgroundColor.red(), backgroundColor.green(), backgroundColor.blue(), 1.0);
+		glColor3f(edgeColor.red(), edgeColor.green(), edgeColor.blue());
 		glLineWidth(edge_width);
 		if (edge_type == 1) {
 			glLineStripple(1, 0x3333); //поиграться со значениями
@@ -93,8 +93,8 @@ void viewer::paintGL() {
 
 void viewer::pointSettings() {
     glEnableClientState(GL_VERTEX_ARRAY);
-    glColor3f(r_color_point, g_color_point, b_color_point);
-    glPointSize(point_size);
+    glColor3f(vertexColor.red(), vertexColor.green(), vertexColor.blue());
+    //glPointSize(point_size);
     if (point_type == 1) {
         glEnable(GL_POINT_SMOOTH);
         glDrawArrays(GL_POINTS, 0, model.countVertex);
@@ -109,21 +109,25 @@ void viewer::applyNewSettings() {
         paint_mode = 1;
     else if (ui->radioButton_central_type->isChecked())
         paint_mode = 2;
-    setBackgroundColor();
-    glClearColor(r_color_background, b_color_background, g_color_background, 1.0);
-    setEdgesColor();
-    glColor3f(r_color_edge, g_color_edge, b_color_edge);
-    edge_width = (float)ui->edgeThickness->value(); // точно она?))
+    glClearColor(backgroundColor.red(), backgroundColor.green(), backgroundColor.blue(), 1.0);
+    glColor3f(edgeColor.red(), edgeColor.green(), edgeColor.blue());
+    edge_width = (float)ui->edgeThickness->value(); // можно флоут убрать?
     glLineWidth(edge_width);
     if (ui->radioButton_edgeType_solid->isChecked())
         edge_type = 0;
     else
         edge_type = 1;
-    //
-    // сюда привязку к кнопкам показа вершин
-    // vvv else:
-    point_visibility = 0;
-
+    if (ui->radioButton_vertexType_novertex->isChecked()) {
+		point_visibility = 0;
+	} else
+		point_visibility = 1;
+		glColor3f(edgeColor.red(), edgeColor.green(), edgeColor.blue());
+		point_size = (float)ui->vertexSize->value() * 2; // и тут флоут тоже?
+		glPointSize(point_size);
+		if (ui->radioButton_vertexType_circle->isChecked())
+			point_size = 1;
+		else
+			point_size = 2;
     update();
 }
 
