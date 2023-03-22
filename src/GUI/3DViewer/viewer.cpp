@@ -37,6 +37,8 @@ viewer::viewer(QWidget *parent) : QOpenGLWidget(parent), ui(new Ui::viewer)
 
 viewer::~viewer()
 {
+    // сохранить настройки программы
+    // очистить все, для чего выделялась память, если выделялась
     delete ui;
 }
 
@@ -229,4 +231,18 @@ void viewer::scaling() {
     update();
 }
 
+void viewer::saveAsJPEG() {
+    QString pathScreenshot = QFileDialog::getSaveFileName(this, ("Save as JPEG"), "image.jpeg", "JPEG Image Files (*.jpeg)");
+    
+    grabFramebuffer().save(pathScreenshot, "jpeg");
+}
 
+void viewer::saveAsBMP() {
+    QString pathScreenshot = QFileDialog::getSaveFileName(this, ("Save as BMP"), "image.bmp", "BMP Image Files (*.bmp)");
+    
+    grabFramebuffer().save(pathScreenshot, "bmp");
+}
+
+void viewer::saveAsGIF() {
+    
+}
