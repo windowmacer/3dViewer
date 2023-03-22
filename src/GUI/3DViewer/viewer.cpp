@@ -1,13 +1,43 @@
 #include "viewer.h"
 #include "./ui_viewer.h"
 
+// coordinates
 #define X 1
 #define Y 2
 #define Z 3
 
+// projection type
+#define PARALLEL 1
+#define CENTRAL 2
+
+// edge type
+#define SOLID 1
+#define DASHED 2
+
+// vertex type
+#define CIRCLE 1
+#define SQUARE 2
+#define NOVERTEX 3
+
+// lines to save the definition
+#define PROJECTION_TYPE "projectionType"
+#define EDGE_TYPE "edgeType"
+#define VERTEX_TYPE "vertexType"
+#define EDGE_THICKNESS "edgeThickness"
+#define VERTEX_SIZE "vertexSize"
+#define BACKGROUND_COLOR "backgroundColor"
+#define EDGE_COLOR "edgeColor"
+#define VERTEX_COLOR "vertexColor"
+#define STEP "step"
+#define ANGLE "angle"
+#define SCALE "scale"
+
 viewer::viewer(QWidget *parent) : QOpenGLWidget(parent), ui(new Ui::viewer)
 {
     ui->setupUi(this);
+
+    // initializing the default colors
+
 
     // connecting the movement buttons
     connect(ui->pushButton_moving_x_minus, SIGNAL(clicked()), this, SLOT(moving()));
@@ -33,11 +63,22 @@ viewer::viewer(QWidget *parent) : QOpenGLWidget(parent), ui(new Ui::viewer)
     connect(ui->pushButton_backgroundColor, SIGNAL(clicked()), this, SLOT(setColor()));
     connect(ui->pushButton_edgeColor, SIGNAL(clicked()), this, SLOT(setColor()));
     connect(ui->pushButton_vertexColor, SIGNAL(clicked()), this, SLOT(setColor()));
+
+    // connecting buttons to synchronize model updates
+    connect(ui->radioButton_parallel_type, SIGNAL(clicked()), this, SLOT(update()));
+    connect(ui->radioButton_central_type, SIGNAL(clicked()), this, SLOT(update()));
+    connect(ui->radioButton_edgeType_dashed, SIGNAL(clicked()), this, SLOT(update()));
+    connect(ui->radioButton_edgeType_solid, SIGNAL(clicked()), this, SLOT(update()));
+    connect(ui->radioButton_vertexType_circle, SIGNAL(clicked()), this, SLOT(update()));
+    connect(ui->radioButton_vertexType_square, SIGNAL(clicked()), this, SLOT(update()));
+    connect(ui->radioButton_vertexType_novertex, SIGNAL(clicked()), this, SLOT(update()));
+    connect(ui->edgeThickness, SIGNAL(valueChanged(int)), this, SLOT(update()));
+    connect(ui->vertexSize, SIGNAL(valueChanged(int)), this, SLOT(update()));
 }
 
 viewer::~viewer()
 {
-    // сохранить настройки программы
+    saveSettings();
     // очистить все, для чего выделялась память, если выделялась
     delete ui;
 }
@@ -141,6 +182,8 @@ void viewer::setColor() {
     } else if (button == ui->pushButton_vertexColor) {
         vertexColor = QColorDialog::getColor(Qt::white);
     }
+
+    update();
 }
 
 void viewer::on_pushButton_selectFile_clicked() {
@@ -244,5 +287,61 @@ void viewer::saveAsBMP() {
 }
 
 void viewer::saveAsGIF() {
-    
+    QString pathGIF = QFileDialog::getSaveFileName(this, ("Save as GIF"), "image.gif", "GIF Image Files (*.gif)");
+
+
+}
+
+void viewer::saveSettings() {
+    // saving color settings
+    lastSettings->setValue(BACKGROUND_COLOR, backgroundColor.name());
+    lastSettings->setValue(EDGE_COLOR, edgeColor.name());
+    lastSettings->setValue(VERTEX_COLOR, vertexColor.name());
+
+    // saving step settings
+    lastSettings->setValue(STEP, ui->step->value());
+    lastSettings->setValue(ANGLE, ui->angle->value());
+    lastSettings->setValue(SCALE, ui->scale->value());
+
+    // saving projection settings
+    if (ui->radioButton_parallel_type->isChecked()) lastSettings->setValue(PROJECTION_TYPE, PARALLEL);
+    if (ui->radioButton_central_type->isChecked()) lastSettings->setValue(PROJECTION_TYPE, CENTRAL);
+
+    // saving edge settings
+    lastSettings->setValue(EDGE_THICKNESS, ui->edgeThickness->value());
+    if (ui->radioButton_edgeType_solid->isChecked()) lastSettings->setValue(EDGE_TYPE, SOLID);
+    if (ui->radioButton_edgeType_dashed->isChecked()) lastSettings->setValue(EDGE_TYPE, DASHED);
+
+    // saving vertex settings
+    lastSettings->setValue(VERTEX_SIZE, ui->vertexSize->value());
+    if (ui->radioButton_vertexType_circle->isChecked()) lastSettings->setValue(VERTEX_TYPE, CIRCLE);
+    if (ui->radioButton_vertexType_square->isChecked()) lastSettings->setValue(VERTEX_TYPE, SQUARE);
+    if (ui->radioButton_vertexType_novertex->isChecked()) lastSettings->setValue(VERTEX_TYPE, NOVERTEX);
+}
+
+void viewer::restoreSettings() {
+    // restoring color settings
+    backgroundColor = lastSettings->value(BACKGROUND_COLOR).toString();
+    edgeColor = lastSettings->value(EDGE_COLOR).toString();
+    vertexColor = lastSettings->value(VERTEX_COLOR).toString();
+
+    // restoring step settings
+    ui->step->setValue(lastSettings->value(STEP).toDouble());
+    ui->angle->setValue(lastSettings->value(ANGLE).toInt());
+    ui->scale->setValue(lastSettings->value(SCALE).toInt());
+
+    // restoring projection settings
+    if (lastSettings->value(PROJECTION_TYPE).toInt() == PARALLEL) ui->radioButton_parallel_type->setChecked(true);
+    if (lastSettings->value(PROJECTION_TYPE).toInt() == CENTRAL) ui->radioButton_central_type->setChecked(true);
+
+    // restoring edge settings
+    ui->edgeThickness->setValue(lastSettings->value(EDGE_THICKNESS).toInt());
+    if (lastSettings->value(EDGE_TYPE).toInt() == SOLID) ui->radioButton_edgeType_solid->setChecked(true);
+    if (lastSettings->value(EDGE_TYPE).toInt() == DASHED) ui->radioButton_edgeType_dashed->setChecked(true);
+
+    // restoring vertex settings
+    ui->vertexSize->setValue(lastSettings->value(VERTEX_SIZE).toInt());
+    if (lastSettings->value(VERTEX_TYPE).toInt() == CIRCLE) ui->radioButton_vertexType_circle->setChecked(true);
+    if (lastSettings->value(VERTEX_TYPE).toInt() == SQUARE) ui->radioButton_vertexType_square->setChecked(true);
+    if (lastSettings->value(VERTEX_TYPE).toInt() == NOVERTEX) ui->radioButton_vertexType_novertex->setChecked(true);
 }
