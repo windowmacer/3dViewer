@@ -31,6 +31,10 @@ typedef struct polygonInSpace {
 } facets;
 
 typedef struct stRoot {
+	float			*vertexCoord;
+	uint32_t		*vertexIndex; 
+	uint32_t		countLines;
+
 	uint32_t		countVertex;
 	uint32_t		countFacets;
 	vertex			*head;
@@ -49,6 +53,8 @@ int				checkType(char *nameFile, structRoot *root);
 void			parcer(char *nameFile, structRoot *pattern);
 void			nullType(structRoot *pattern);
 void			fillingNode(int fd, structRoot *pattern);
+void			makeVertexCoordArray(structRoot	*root);
+void			findCenter(structRoot *root);
 char			*get_next_line(int fd);
 
 #endif
