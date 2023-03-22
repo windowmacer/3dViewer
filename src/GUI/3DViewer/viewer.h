@@ -8,7 +8,8 @@
 #include <QColor>           // library for using colors
 #include <QFileDialog>      // library for dialog windows
 #include <QColorDialog>     // library for dialog windows
-#include <QSettings>
+#include <QSettings>        // library for saving and restoring settings
+#include <QTimer>           // library for time counting
 
 #ifdef __cplusplus
 extern "C" {
@@ -55,7 +56,7 @@ private:
     void    saveAsBMP();
     void    saveAsGIF();
 
-    //
+    // methods for saving and restoring settings
     QSettings *lastSettings;
     void    saveSettings();
     void    restoreSettings();

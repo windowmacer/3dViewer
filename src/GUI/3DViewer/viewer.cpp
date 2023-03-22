@@ -37,6 +37,7 @@ viewer::viewer(QWidget *parent) : QOpenGLWidget(parent), ui(new Ui::viewer)
     ui->setupUi(this);
 
     // initializing the default colors
+    // можно добавить функцию, которая инициализирует начальные переменные, для того чтобы не грузить конструктор еще
 
 
     // connecting the movement buttons
@@ -74,6 +75,8 @@ viewer::viewer(QWidget *parent) : QOpenGLWidget(parent), ui(new Ui::viewer)
     connect(ui->radioButton_vertexType_novertex, SIGNAL(clicked()), this, SLOT(update()));
     connect(ui->edgeThickness, SIGNAL(valueChanged(int)), this, SLOT(update()));
     connect(ui->vertexSize, SIGNAL(valueChanged(int)), this, SLOT(update()));
+
+    restoreSettings();
 }
 
 viewer::~viewer()
@@ -320,27 +323,33 @@ void viewer::saveSettings() {
 }
 
 void viewer::restoreSettings() {
+    QString tempBackgroundColor = lastSettings->value(BACKGROUND_COLOR, -1).toString();
+    QString tempEdgeColor = lastSettings->value(EDGE_COLOR, -1).toString();
+    QString tempVertexColor = lastSettings->value(VERTEX_COLOR, -1).toString();
+    int tempEdgeThickness = lastSettings->value(EDGE_THICKNESS, -1).toInt();
+    int tempVertexSize = lastSettings->value(VERTEX_SIZE, -1).toInt();
+
     // restoring color settings
-    backgroundColor = lastSettings->value(BACKGROUND_COLOR).toString();
-    edgeColor = lastSettings->value(EDGE_COLOR).toString();
-    vertexColor = lastSettings->value(VERTEX_COLOR).toString();
+    if (tempBackgroundColor != "-1") backgroundColor.setNamedColor(tempBackgroundColor);
+    if (tempEdgeColor != "-1") edgeColor.setNamedColor(tempEdgeColor);
+    if (tempVertexColor != "-1") vertexColor.setNamedColor(tempVertexColor);
 
     // restoring step settings
-    ui->step->setValue(lastSettings->value(STEP).toDouble());
-    ui->angle->setValue(lastSettings->value(ANGLE).toInt());
-    ui->scale->setValue(lastSettings->value(SCALE).toInt());
+    if (double tempStep = lastSettings->value(STEP, -1).toDouble(); tempStep != -1) ui->step->setValue(tempStep);
+    if (int tempAngle = lastSettings->value(ANGLE, -1).toInt(); tempAngle != -1 ) ui->angle->setValue(tempAngle);
+    if (int tempScale = lastSettings->value(SCALE, -1).toInt(); tempScale != -1) ui->scale->setValue(tempScale);
 
     // restoring projection settings
     if (lastSettings->value(PROJECTION_TYPE).toInt() == PARALLEL) ui->radioButton_parallel_type->setChecked(true);
     if (lastSettings->value(PROJECTION_TYPE).toInt() == CENTRAL) ui->radioButton_central_type->setChecked(true);
 
     // restoring edge settings
-    ui->edgeThickness->setValue(lastSettings->value(EDGE_THICKNESS).toInt());
+    if (tempEdgeThickness != -1) ui->edgeThickness->setValue(tempEdgeThickness);
     if (lastSettings->value(EDGE_TYPE).toInt() == SOLID) ui->radioButton_edgeType_solid->setChecked(true);
     if (lastSettings->value(EDGE_TYPE).toInt() == DASHED) ui->radioButton_edgeType_dashed->setChecked(true);
 
     // restoring vertex settings
-    ui->vertexSize->setValue(lastSettings->value(VERTEX_SIZE).toInt());
+    if (tempVertexSize != -1) ui->vertexSize->setValue(tempVertexSize);
     if (lastSettings->value(VERTEX_TYPE).toInt() == CIRCLE) ui->radioButton_vertexType_circle->setChecked(true);
     if (lastSettings->value(VERTEX_TYPE).toInt() == SQUARE) ui->radioButton_vertexType_square->setChecked(true);
     if (lastSettings->value(VERTEX_TYPE).toInt() == NOVERTEX) ui->radioButton_vertexType_novertex->setChecked(true);
