@@ -55,6 +55,7 @@ private:
     QColor vertexColor;
 
 	float	edge_width;
+	float	point_size;
 	int		edge_type, point_type, point_visibility;
 };
 
