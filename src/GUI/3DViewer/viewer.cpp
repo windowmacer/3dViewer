@@ -232,13 +232,17 @@ void viewer::scaling() {
 }
 
 void viewer::saveAsJPEG() {
-
+    QString pathScreenshot = QFileDialog::getSaveFileName(this, ("Save as JPEG"), "image.jpeg", "JPEG Image Files (*.jpeg)");
+    
+    grabFramebuffer().save(pathScreenshot, "jpeg");
 }
 
 void viewer::saveAsBMP() {
-
+    QString pathScreenshot = QFileDialog::getSaveFileName(this, ("Save as BMP"), "image.bmp", "BMP Image Files (*.bmp)");
+    
+    grabFramebuffer().save(pathScreenshot, "bmp");
 }
 
 void viewer::saveAsGIF() {
-
+    
 }
