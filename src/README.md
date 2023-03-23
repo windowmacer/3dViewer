@@ -26,6 +26,7 @@ Make sure you have the following packages installed:
 - 'MAKE'
 - 'CMAKE'
 - 'QT5' and later
+- 'OpenGL API'
 
 ## Installation
 
