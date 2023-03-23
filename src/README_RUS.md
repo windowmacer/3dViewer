@@ -26,6 +26,7 @@
 - 'MAKE'
 - 'CMAKE'
 - 'QT5' и выше
+- 'OpenGL API'
 
 ## Установка
 
