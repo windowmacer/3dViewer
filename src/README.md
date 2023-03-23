@@ -1,6 +1,6 @@
 # 3DViewer 1.0
 
-## Project features 
+## Features
 
 - GUI
 - Loading of a wireframe model from an .obj file (supports only a list of vertices and surfaces)
