@@ -24,12 +24,22 @@ find_library(
             NAMES lib3dviewer 3dviewer
             HINTS "${CMAKE_SOURCE_DIR}"
 )
+find_library(
+            giflib
+            NAMES libgiflib giflib
+            HINTS "${CMAKE_SOURCE_DIR}"
+)
 
 set(PROJECT_SOURCES
         main.cpp
         viewer.cpp
         viewer.h
         viewer.ui
+
+        QtGifImage/gifimage/qgifimage.cpp
+        QtGifImage/gifimage/qgifglobal.h
+        QtGifImage/gifimage/qgifimage_p.h
+        QtGifImage/gifimage/qgifimage.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -60,6 +70,7 @@ target_link_libraries(3DViewer PRIVATE Qt${QT_VERSION_MAJOR}::Gui)
 target_link_libraries(3DViewer PRIVATE Qt${QT_VERSION_MAJOR}::OpenGLWidgets)
 target_link_libraries(3DViewer PRIVATE Qt${QT_VERSION_MAJOR}::Core)
 target_link_libraries(3DViewer PRIVATE ${viewer_lib})
+target_link_libraries(3DViewer PRIVATE ${giflib})
 
 set_target_properties(3DViewer PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
