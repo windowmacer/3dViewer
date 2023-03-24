@@ -10,8 +10,9 @@
 #include <QColorDialog>     // library for dialog windows
 #include <QSettings>        // library for saving and restoring settings
 #include <QTimer>           // library for time counting
+#include <QScrollArea>      //
 
-#include "QtGifImage/gifimage/qgifimage.h"
+#include "QtGifImage/gifimage/qgifimage.h" // library for creating GIF-images
 
 #ifdef __cplusplus
 extern "C" {
@@ -20,6 +21,37 @@ extern "C" {
    #ifdef __cplusplus
 }
 #endif
+
+// coordinates
+#define X 1
+#define Y 2
+#define Z 3
+
+// projection type
+#define PARALLEL 1
+#define CENTRAL 2
+
+// edge type
+#define SOLID 1
+#define DASHED 2
+
+// vertex type
+#define CIRCLE 1
+#define SQUARE 2
+#define NOVERTEX 3
+
+// lines to save the definition
+#define PROJECTION_TYPE "projectionType"
+#define EDGE_TYPE "edgeType"
+#define VERTEX_TYPE "vertexType"
+#define EDGE_THICKNESS "edgeThickness"
+#define VERTEX_SIZE "vertexSize"
+#define BACKGROUND_COLOR "backgroundColor"
+#define EDGE_COLOR "edgeColor"
+#define VERTEX_COLOR "vertexColor"
+#define STEP "step"
+#define ANGLE "angle"
+#define SCALE "scale"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class viewer; }
@@ -77,6 +109,11 @@ private:
     QGifImage *gif;
     QTimer *timer;
     int frames;
+
+    // удалиить, если не будет использоваться
+    QScrollArea *scrollArea;
+
+    void    initDefaultValues();
 
     float	x_angle, y_angle, z_angle;
     int		paint_mode;

@@ -1,51 +1,22 @@
 #include "viewer.h"
 #include "./ui_viewer.h"
 
-// coordinates
-#define X 1
-#define Y 2
-#define Z 3
-
-// projection type
-#define PARALLEL 1
-#define CENTRAL 2
-
-// edge type
-#define SOLID 1
-#define DASHED 2
-
-// vertex type
-#define CIRCLE 1
-#define SQUARE 2
-#define NOVERTEX 3
-
-// lines to save the definition
-#define PROJECTION_TYPE "projectionType"
-#define EDGE_TYPE "edgeType"
-#define VERTEX_TYPE "vertexType"
-#define EDGE_THICKNESS "edgeThickness"
-#define VERTEX_SIZE "vertexSize"
-#define BACKGROUND_COLOR "backgroundColor"
-#define EDGE_COLOR "edgeColor"
-#define VERTEX_COLOR "vertexColor"
-#define STEP "step"
-#define ANGLE "angle"
-#define SCALE "scale"
-
 viewer::viewer(QWidget *parent) : QOpenGLWidget(parent), ui(new Ui::viewer)
 {
     ui->setupUi(this);
     this->resize(1440, 1080);
+    initDefaultValues();
 
-    backgroundColor.setRgb(255, 255, 255);
-    edgeColor.setRgb(0, 0, 255);
-    vertexColor.setRgb(255, 0, 0);
+//    scrollArea = new QScrollArea(this);
+//    QWidget *widget = new QWidget(scrollArea);
+    ui->verticalScrollBar->setRange(0, 0);
+    // scrollArea->setVerticalScrollBar(ui->verticalScrollBar);
+//    scrollArea->setWidget(widget);
+//    scrollArea->setWidgetResizable(true);
+//    widget->setMinimumSize(300, 500);
 
 
-    // init();
-    // initializing the default colors
-    // инициализировать переменную int frames // инициализировал в гиф функции
-    // можно добавить функцию, которая инициализирует начальные переменные, для того чтобы не грузить конструктор еще
+
 
 
 //     connecting the movement buttons
@@ -95,93 +66,11 @@ viewer::~viewer()
     delete ui;
 }
 
-void viewer::initializeGL() {
-    x_angle = 15;
-    y_angle = 15;
-    z_angle = 1; //хмм?
-    paint_mode = 0;
-    glEnable(GL_DEPTH_TEST);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-}
-
-void viewer::resizeGL(int w, int h) {
-    glViewport(0, 0, w, h);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-}
-
-void viewer::paintGL() {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glVertexPointer(3, GL_FLOAT, 0, model.vertexCoord);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    if (paint_mode == 0) applyNewSettings();
-    else if (paint_mode == 1 || paint_mode == 2) {
-        if (paint_mode == 1) {
-            glOrtho(-5, 5, -5, 5, 1, 15); //значения поменять?
-            glTranslated(0, 0, -10);
-        }
-        else if (paint_mode == 2) {
-            glFrustum(-1, 1, -1, 1, 1, 15);
-            glTranslated(0, 0, -10);
-        }
-        glRotated(x_angle, 1, 0, 0);
-        glRotated(y_angle, 0, 1, 0);
-        glRotated(z_angle, 0, 0, 1);
-        glClearColor(backgroundColor.red(), backgroundColor.green(), backgroundColor.blue(), 1.0);
-        glColor3f(edgeColor.red(), edgeColor.green(), edgeColor.blue());
-        glLineWidth(edge_width);
-        if (edge_type == 1) {
-            glLineStipple(1, 0x3333); //поиграться со значениями
-            glEnable(GL_LINE_STIPPLE);
-        }
-        else glDisable(GL_LINE_STIPPLE);
-        // glDrawElements(GL_LINES, model.countLines, GL_UNSIGNED_INT, model.vertexIndex); //переработать парсер
-        glDisableClientState(GL_VERTEX_ARRAY);
-        if (point_visibility == 1) pointSettings();
-    }
-}
-
-void viewer::pointSettings() {
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glColor3f(vertexColor.red(), vertexColor.green(), vertexColor.blue());
-    //glPointSize(point_size);
-    if (point_type == 1) {
-        glEnable(GL_POINT_SMOOTH);
-        glDrawArrays(GL_POINTS, 0, model.countVertex);
-        glDisable(GL_POINT_SMOOTH);
-    }
-    else glDrawArrays(GL_POINTS, 0, model.countVertex);
-    glDisableClientState(GL_VERTEX_ARRAY);
-}
-
-void viewer::applyNewSettings() {
-    if (ui->radioButton_parallel_type->isChecked())
-        paint_mode = 1;
-    else if (ui->radioButton_central_type->isChecked())
-        paint_mode = 2;
-    glClearColor(backgroundColor.red(), backgroundColor.green(), backgroundColor.blue(), 1.0);
-    glColor3f(edgeColor.red(), edgeColor.green(), edgeColor.blue());
-    edge_width = (float)ui->edgeThickness->value(); // можно флоут убрать?
-    glLineWidth(edge_width);
-    if (ui->radioButton_edgeType_solid->isChecked())
-        edge_type = 0;
-    else
-        edge_type = 1;
-    if (ui->radioButton_vertexType_novertex->isChecked()) {
-		point_visibility = 0;
-	} else
-		point_visibility = 1;
-		glColor3f(edgeColor.red(), edgeColor.green(), edgeColor.blue());
-		point_size = (float)ui->vertexSize->value() * 2; // и тут флоут тоже?
-		glPointSize(point_size);
-		if (ui->radioButton_vertexType_circle->isChecked())
-			point_size = 1;
-		else
-			point_size = 2;
-    update();
+void viewer::initDefaultValues() {
+    // setting the color
+    backgroundColor.setRgb(255, 255, 255);
+    edgeColor.setRgb(0, 0, 255);
+    vertexColor.setRgb(255, 0, 0);
 }
 
 void viewer::setColor() {
@@ -211,7 +100,7 @@ void viewer::on_pushButton_selectFile_clicked() {
 //    ui->numberOfEdges->setText(QString::number(model.edges));
     paint_mode = 0;
 
-    // update();
+    update();
 }
 
 void viewer::moving() {
@@ -285,118 +174,4 @@ void viewer::scaling() {
     }
 
     update();
-}
-
-void viewer::saveAsJPEG() {
-    QString pathScreenshot = QFileDialog::getSaveFileName(this, ("Save as JPEG"), "image.jpeg", "JPEG Image Files (*.jpeg)");
-    
-    grabFramebuffer().save(pathScreenshot, "jpeg");
-}
-
-void viewer::saveAsBMP() {
-    QString pathScreenshot = QFileDialog::getSaveFileName(this, ("Save as BMP"), "image.bmp", "BMP Image Files (*.bmp)");
-    
-    grabFramebuffer().save(pathScreenshot, "bmp");
-}
-
-void viewer::saveAsGIF() {
-    QString pathGIF = QFileDialog::getSaveFileName(this, ("Save as GIF"), "image.gif", "GIF Image Files (*.gif)");
-
-
-}
-
-void viewer::saveSettings() {
-    // saving color settings
-    lastSettings->setValue(BACKGROUND_COLOR, backgroundColor.name());
-    lastSettings->setValue(EDGE_COLOR, edgeColor.name());
-    lastSettings->setValue(VERTEX_COLOR, vertexColor.name());
-
-    // saving step settings
-    lastSettings->setValue(STEP, ui->step->value());
-    lastSettings->setValue(ANGLE, ui->angle->value());
-    lastSettings->setValue(SCALE, ui->scale->value());
-
-    // saving projection settings
-    if (ui->radioButton_parallel_type->isChecked()) lastSettings->setValue(PROJECTION_TYPE, PARALLEL);
-    if (ui->radioButton_central_type->isChecked()) lastSettings->setValue(PROJECTION_TYPE, CENTRAL);
-
-    // saving edge settings
-    lastSettings->setValue(EDGE_THICKNESS, ui->edgeThickness->value());
-    if (ui->radioButton_edgeType_solid->isChecked()) lastSettings->setValue(EDGE_TYPE, SOLID);
-    if (ui->radioButton_edgeType_dashed->isChecked()) lastSettings->setValue(EDGE_TYPE, DASHED);
-
-    // saving vertex settings
-    lastSettings->setValue(VERTEX_SIZE, ui->vertexSize->value());
-    if (ui->radioButton_vertexType_circle->isChecked()) lastSettings->setValue(VERTEX_TYPE, CIRCLE);
-    if (ui->radioButton_vertexType_square->isChecked()) lastSettings->setValue(VERTEX_TYPE, SQUARE);
-    if (ui->radioButton_vertexType_novertex->isChecked()) lastSettings->setValue(VERTEX_TYPE, NOVERTEX);
-}
-
-void viewer::restoreSettings() {
-    QString tempBackgroundColor = lastSettings->value(BACKGROUND_COLOR, -1).toString();
-    QString tempEdgeColor = lastSettings->value(EDGE_COLOR, -1).toString();
-    QString tempVertexColor = lastSettings->value(VERTEX_COLOR, -1).toString();
-    int tempEdgeThickness = lastSettings->value(EDGE_THICKNESS, -1).toInt();
-    int tempVertexSize = lastSettings->value(VERTEX_SIZE, -1).toInt();
-
-    // restoring color settings
-    if (tempBackgroundColor != "-1") backgroundColor.setNamedColor(tempBackgroundColor);
-    if (tempEdgeColor != "-1") edgeColor.setNamedColor(tempEdgeColor);
-    if (tempVertexColor != "-1") vertexColor.setNamedColor(tempVertexColor);
-
-    // restoring step settings
-    if (double tempStep = lastSettings->value(STEP, -1).toDouble(); tempStep != -1) ui->step->setValue(tempStep);
-    if (int tempAngle = lastSettings->value(ANGLE, -1).toInt(); tempAngle != -1 ) ui->angle->setValue(tempAngle);
-    if (int tempScale = lastSettings->value(SCALE, -1).toInt(); tempScale != -1) ui->scale->setValue(tempScale);
-
-    // restoring projection settings
-    if (lastSettings->value(PROJECTION_TYPE).toInt() == PARALLEL) ui->radioButton_parallel_type->setChecked(true);
-    if (lastSettings->value(PROJECTION_TYPE).toInt() == CENTRAL) ui->radioButton_central_type->setChecked(true);
-
-    // restoring edge settings
-    if (tempEdgeThickness != -1) ui->edgeThickness->setValue(tempEdgeThickness);
-    if (lastSettings->value(EDGE_TYPE).toInt() == SOLID) ui->radioButton_edgeType_solid->setChecked(true);
-    if (lastSettings->value(EDGE_TYPE).toInt() == DASHED) ui->radioButton_edgeType_dashed->setChecked(true);
-
-    // restoring vertex settings
-    if (tempVertexSize != -1) ui->vertexSize->setValue(tempVertexSize);
-    if (lastSettings->value(VERTEX_TYPE).toInt() == CIRCLE) ui->radioButton_vertexType_circle->setChecked(true);
-    if (lastSettings->value(VERTEX_TYPE).toInt() == SQUARE) ui->radioButton_vertexType_square->setChecked(true);
-    if (lastSettings->value(VERTEX_TYPE).toInt() == NOVERTEX) ui->radioButton_vertexType_novertex->setChecked(true);
-}
-
-void viewer::on_actionSave_as_GIF_triggered() {
-    frames = 0;
-    gif = new QGifImage;
-    timer = new QTimer(this);
-    gif->setDefaultDelay(100);
-    connect(timer, SIGNAL(timeout()), this, SLOT(saveImage()));
-    timer->start(100);
-}
-
-void viewer::saveImage() {
-    QPixmap pix = QPixmap::fromImage(grabFramebuffer());
-    QPixmap scaledPix = pix.scaled(QSize(640, 480), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    gif->addFrame(scaledPix.toImage());
-
-    if (frames == 50) {
-        timer->stop();
-        QString pathGIF = QFileDialog::getSaveFileName(this, ("Save as GIF"), "image.gif", "GIF Image Files (*.gif)");
-        gif->save(pathGIF);
-        delete timer;
-        delete gif;
-    }
-    frames++;
-}
-
-void viewer::on_actionSave_as_bmp_triggered() {
-    QString pathScreenshot = QFileDialog::getSaveFileName(this, ("Save as BMP"), "image.bmp", "BMP Image Files (*.bmp)");
-
-    grabFramebuffer().save(pathScreenshot, "bmp");
-}
-
-void viewer::on_actionSave_as_jpeg_triggered() {
-    QString pathScreenshot = QFileDialog::getSaveFileName(this, ("Save as JPEG"), "image.jpeg", "JPEG Image Files (*.jpeg)");
-
-    grabFramebuffer().save(pathScreenshot, "jpeg");
 }

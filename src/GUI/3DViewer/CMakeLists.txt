@@ -33,6 +33,9 @@ find_library(
 set(PROJECT_SOURCES
         main.cpp
         viewer.cpp
+        OpenGLfunctions.cpp
+        saveFormat.cpp
+        saveSettings.cpp
         viewer.h
         viewer.ui
 
