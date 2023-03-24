@@ -24,7 +24,7 @@ OBJ_GIFLIB				:= $(patsubst $(SRC_GIFLIB_DIR)%.c,$(OBJ_GIFLIB_DIR)%.o,$(SRC_GIFL
 
 all: install launch_app gcov_report uninstall clean
 
-install: $(LIBRARY)
+install: $(LIBRARY) $(GIF_LIBRARY)
 	mv $(LIBRARY) GUI/3DViewer/lib$(LIBRARY)
 	cmake -S GUI/3DViewer -B build
 	make -C build
@@ -40,8 +40,8 @@ uninstall: clean
 
 dvi:
 	open README.md
-	# можно сделать через doxygen, но там нужно будет описание для функций составлять
 
+# посмотреть еще варианты архивации
 dist: install
 	tar -czf SmartCalculator.tar.gz --directory=build/ .
 	mv SmartCalculator.tar.gz ../SmartCalculator.tar.gz
@@ -78,20 +78,6 @@ $(OBJ_TEST_DIR)%.o: $(SRC_TEST_DIR)%.c
 
 $(OBJ_GIFLIB_DIR)%.o: $(SRC_GIFLIB_DIR)%.c
 	$(CC) -c $< -o $@
-
-# $(OBJ_TEST):
-# 	$(CC) $(CFLAGS) -c $(SRC_TEST)
-	
-# .c.o:
-# 	$(CC) $(CFLAGS) -c $< -o $@
-
-# $(OBJ_PROJECT):
-# 	$(CC) $(CFLAGS) -c $(SRC_PROJECT)
-
-# %.o: %.c
-# 	$(CC) $(CFLAGS) -c $< -o $@
-
-
 
 # переписать клин под наш мейк
 clean:
