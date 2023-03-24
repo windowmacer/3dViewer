@@ -11,6 +11,9 @@
 #include <QSettings>        // library for saving and restoring settings
 #include <QTimer>           // library for time counting
 #include <QScrollArea>      //
+#include <QMouseEvent>      //
+#include <QWheelEvent>      //
+#include <QKeyEvent>        //
 
 #include "QtGifImage/gifimage/qgifimage.h" // library for creating GIF-images
 
@@ -71,11 +74,12 @@ private slots:
     void rotation();
     void scaling();
     void setColor();
-    void saveImage();
 
+    // methods for saving images
     void on_actionSave_as_GIF_triggered();
     void on_actionSave_as_bmp_triggered();
     void on_actionSave_as_jpeg_triggered();
+    void saveImage();
 
 private:
     Ui::viewer *ui;     // ui object of the viewer class
@@ -89,11 +93,6 @@ private:
     //
 	void 	pointSettings();
 	void	applyNewSettings();
-
-    // methods for saving images
-    void    saveAsJPEG();
-    void    saveAsBMP();
-    void    saveAsGIF();
 
     // methods for saving and restoring settings
     QSettings *lastSettings;
@@ -110,10 +109,21 @@ private:
     QTimer *timer;
     int frames;
 
-    // удалиить, если не будет использоваться
+    // mouse events
+    QPoint clickPosition;
+    bool leftButton;
+    bool rightButton;
+    void mouseMoveEvent(QMouseEvent *cursorPosition) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *cursorPosition) override;
+    void wheelEvent(QWheelEvent *event) override;
+
+    void keyPressEvent(QKeyEvent *event) override; // keys for calling saving gif, jpeg and bmp
+
+    // удалить, если не будет использоваться
     QScrollArea *scrollArea;
 
-    void    initDefaultValues();
+    void    initDefaultValues(); // initialization of the initial values of the program
 
     float	x_angle, y_angle, z_angle;
     int		paint_mode;

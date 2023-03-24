@@ -36,6 +36,7 @@ set(PROJECT_SOURCES
         OpenGLfunctions.cpp
         saveFormat.cpp
         saveSettings.cpp
+        events.cpp
         viewer.h
         viewer.ui
 

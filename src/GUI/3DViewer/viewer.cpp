@@ -90,17 +90,19 @@ void viewer::setColor() {
 // сделать обработку ошибки при отмене открытия файла
 void viewer::on_pushButton_selectFile_clicked() {
     QString filePath = QFileDialog::getOpenFileName(this, ("Select Model"), "../models/", "3D Image Files (*.obj)");
-    char *path = (filePath.toLocal8Bit()).data();
 
-    // parse function
-    parcer(path, &model);
+    if (filePath != "") {
+        char *path = (filePath.toLocal8Bit()).data();
 
-    ui->fileName->setText((QFileInfo (filePath)).fileName());
-//    ui->numberOfVertices->setText(QString::number(model.vertices));
-//    ui->numberOfEdges->setText(QString::number(model.edges));
-    paint_mode = 0;
+        parcer(path, &model); // parse function
 
-    update();
+        ui->fileName->setText((QFileInfo (filePath)).fileName());
+    //    ui->numberOfVertices->setText(QString::number(model.vertices));
+    //    ui->numberOfEdges->setText(QString::number(model.edges));
+        paint_mode = 0;
+
+        update();
+    }
 }
 
 void viewer::moving() {
@@ -108,18 +110,19 @@ void viewer::moving() {
     QPushButton *button = (QPushButton *)sender();
     QString buttonText = button->text();
 
+    // нужно переделать прототипы функции, например moveModel(struct *model, double step, int axis);,
+    // где step = step * shift, а положительная или отрицательная сторона выбирается по знаку step
 
     // prototype function: moveModel(struct *model, double step, int axis, int shift);
     // axis - (X, Y, Z), where X = 1, Y = 2, Z = 3;
-    // shift - (1, -1), where digit = coordinate shift
     if (buttonText == "⇦") {
         // shift function
         // x-coordinate
-        // moveModel(&model, step, X, -1);
+        // moveModel(&model, step, X);
     } else if (buttonText == "⇨") {
         // shift function
         // x-coordinate
-        // moveModel(&model, step, X, 1);
+        // moveModel(&model, step, X);
     } else if (buttonText == "⇩") {
         // shift function
         // y-coordinate
