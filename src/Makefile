@@ -43,8 +43,7 @@ dvi:
 
 # посмотреть еще варианты архивации
 dist: install
-	tar -czf SmartCalculator.tar.gz --directory=build/ .
-	mv SmartCalculator.tar.gz ../SmartCalculator.tar.gz
+	tar -czf $(APP_NAME).tar.gz --directory=build/ .
 
 launch_app:
 	./$(APP_NAME)
@@ -86,11 +85,8 @@ clean:
 	rm -rf $(OBJ_TEST_DIR)*
 	rm -rf $(OBJ_GIFLIB_DIR)*
 	rm -rf test
-	rm -rf *.o
 	rm -rf *.a
-	rm -rf *.gcda
 	rm -rf report
-	rm -rf *.gcno
 	rm -rf *.info
 	rm -rf valgrind.txt
 
