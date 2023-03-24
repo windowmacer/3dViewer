@@ -35,12 +35,20 @@
 viewer::viewer(QWidget *parent) : QOpenGLWidget(parent), ui(new Ui::viewer)
 {
     ui->setupUi(this);
+    this->resize(1440, 1080);
 
+    backgroundColor.setRgb(255, 255, 255);
+    edgeColor.setRgb(0, 0, 255);
+    vertexColor.setRgb(255, 0, 0);
+
+
+    // init();
     // initializing the default colors
+    // инициализировать переменную int frames // инициализировал в гиф функции
     // можно добавить функцию, которая инициализирует начальные переменные, для того чтобы не грузить конструктор еще
 
 
-    // connecting the movement buttons
+//     connecting the movement buttons
     connect(ui->pushButton_moving_x_minus, SIGNAL(clicked()), this, SLOT(moving()));
     connect(ui->pushButton_moving_x_plus, SIGNAL(clicked()), this, SLOT(moving()));
     connect(ui->pushButton_moving_y_minus, SIGNAL(clicked()), this, SLOT(moving()));
@@ -76,12 +84,13 @@ viewer::viewer(QWidget *parent) : QOpenGLWidget(parent), ui(new Ui::viewer)
     connect(ui->edgeThickness, SIGNAL(valueChanged(int)), this, SLOT(update()));
     connect(ui->vertexSize, SIGNAL(valueChanged(int)), this, SLOT(update()));
 
-    restoreSettings();
+    // lastSettings = new QSettings("SAVE_3DVIEWER", "3DViewer", this);
+    // restoreSettings();
 }
 
 viewer::~viewer()
 {
-    saveSettings();
+    // saveSettings();
     // очистить все, для чего выделялась память, если выделялась
     delete ui;
 }
@@ -103,36 +112,36 @@ void viewer::resizeGL(int w, int h) {
 }
 
 void viewer::paintGL() {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glVertexPointer(3, GL_FLOAT, 0, model.vertexCoord);
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	if (paint_mode == 0) applyNewSettings();
-	else if (paint_mode == 1 || paint_mode == 2) {
-		if (paint_mode == 1) {
-			glOrtho(-5, 5, -5, 5, 1, 15); //значения поменять?
-			glTranslated(0, 0, -10);
-		} 
-		else if (paint_mode == 2) {
-			glFrustum(-1, 1, -1, 1, 1, 15);
-			glTranslated(0, 0, -10);
-		}
-		glRotated(x_angle, 1, 0, 0);
-		glRotated(y_angle, 0, 1, 0);
-		glRotated(z_angle, 0, 0, 1);
-		glClearColor(backgroundColor.red(), backgroundColor.green(), backgroundColor.blue(), 1.0);
-		glColor3f(edgeColor.red(), edgeColor.green(), edgeColor.blue());
-		glLineWidth(edge_width);
-		if (edge_type == 1) {
-			glLineStripple(1, 0x3333); //поиграться со значениями
-			glEnable(GL_LINE_STIPPLE);
-		}
-		else glDisable(GL_LINE_STIPPLE);
-		glDrawElements(GL_LINES, model.countLines, GL_UNSIGNED_INT, model.vertexIndex); //переработать парсер
-		glDisableClientState(GL_VERTEX_ARRAY);
-		if (point_visibility == 1) pointSettings();
-	}
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glVertexPointer(3, GL_FLOAT, 0, model.vertexCoord);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    if (paint_mode == 0) applyNewSettings();
+    else if (paint_mode == 1 || paint_mode == 2) {
+        if (paint_mode == 1) {
+            glOrtho(-5, 5, -5, 5, 1, 15); //значения поменять?
+            glTranslated(0, 0, -10);
+        }
+        else if (paint_mode == 2) {
+            glFrustum(-1, 1, -1, 1, 1, 15);
+            glTranslated(0, 0, -10);
+        }
+        glRotated(x_angle, 1, 0, 0);
+        glRotated(y_angle, 0, 1, 0);
+        glRotated(z_angle, 0, 0, 1);
+        glClearColor(backgroundColor.red(), backgroundColor.green(), backgroundColor.blue(), 1.0);
+        glColor3f(edgeColor.red(), edgeColor.green(), edgeColor.blue());
+        glLineWidth(edge_width);
+        if (edge_type == 1) {
+            glLineStipple(1, 0x3333); //поиграться со значениями
+            glEnable(GL_LINE_STIPPLE);
+        }
+        else glDisable(GL_LINE_STIPPLE);
+        // glDrawElements(GL_LINES, model.countLines, GL_UNSIGNED_INT, model.vertexIndex); //переработать парсер
+        glDisableClientState(GL_VERTEX_ARRAY);
+        if (point_visibility == 1) pointSettings();
+    }
 }
 
 void viewer::pointSettings() {
@@ -189,6 +198,7 @@ void viewer::setColor() {
     update();
 }
 
+// сделать обработку ошибки при отмене открытия файла
 void viewer::on_pushButton_selectFile_clicked() {
     QString filePath = QFileDialog::getOpenFileName(this, ("Select Model"), "../models/", "3D Image Files (*.obj)");
     char *path = (filePath.toLocal8Bit()).data();
@@ -353,4 +363,40 @@ void viewer::restoreSettings() {
     if (lastSettings->value(VERTEX_TYPE).toInt() == CIRCLE) ui->radioButton_vertexType_circle->setChecked(true);
     if (lastSettings->value(VERTEX_TYPE).toInt() == SQUARE) ui->radioButton_vertexType_square->setChecked(true);
     if (lastSettings->value(VERTEX_TYPE).toInt() == NOVERTEX) ui->radioButton_vertexType_novertex->setChecked(true);
+}
+
+void viewer::on_actionSave_as_GIF_triggered() {
+    frames = 0;
+    gif = new QGifImage;
+    timer = new QTimer(this);
+    gif->setDefaultDelay(100);
+    connect(timer, SIGNAL(timeout()), this, SLOT(saveImage()));
+    timer->start(100);
+}
+
+void viewer::saveImage() {
+    QPixmap pix = QPixmap::fromImage(grabFramebuffer());
+    QPixmap scaledPix = pix.scaled(QSize(640, 480), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    gif->addFrame(scaledPix.toImage());
+
+    if (frames == 50) {
+        timer->stop();
+        QString pathGIF = QFileDialog::getSaveFileName(this, ("Save as GIF"), "image.gif", "GIF Image Files (*.gif)");
+        gif->save(pathGIF);
+        delete timer;
+        delete gif;
+    }
+    frames++;
+}
+
+void viewer::on_actionSave_as_bmp_triggered() {
+    QString pathScreenshot = QFileDialog::getSaveFileName(this, ("Save as BMP"), "image.bmp", "BMP Image Files (*.bmp)");
+
+    grabFramebuffer().save(pathScreenshot, "bmp");
+}
+
+void viewer::on_actionSave_as_jpeg_triggered() {
+    QString pathScreenshot = QFileDialog::getSaveFileName(this, ("Save as JPEG"), "image.jpeg", "JPEG Image Files (*.jpeg)");
+
+    grabFramebuffer().save(pathScreenshot, "jpeg");
 }

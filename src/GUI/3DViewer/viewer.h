@@ -11,6 +11,8 @@
 #include <QSettings>        // library for saving and restoring settings
 #include <QTimer>           // library for time counting
 
+#include "QtGifImage/gifimage/qgifimage.h"
+
 #ifdef __cplusplus
 extern "C" {
    #endif
@@ -36,6 +38,12 @@ private slots:
     void moving();
     void rotation();
     void scaling();
+    void setColor();
+    void saveImage();
+
+    void on_actionSave_as_GIF_triggered();
+    void on_actionSave_as_bmp_triggered();
+    void on_actionSave_as_jpeg_triggered();
 
 private:
     Ui::viewer *ui;     // ui object of the viewer class
@@ -44,12 +52,11 @@ private:
     // model rendering methods
 	void 	initializeGL() override;
 	void 	resizeGL(int w, int h) override;
-	void 	paintGL() override;
+    void 	paintGL() override;
 
     //
 	void 	pointSettings();
 	void	applyNewSettings();
-    void    setColor();
 
     // methods for saving images
     void    saveAsJPEG();
@@ -61,13 +68,18 @@ private:
     void    saveSettings();
     void    restoreSettings();
 
-	float	x_angle, y_angle, z_angle;
-	int		paint_mode;
-
     // colors
     QColor backgroundColor;
     QColor edgeColor;
     QColor vertexColor;
+
+    // GIF
+    QGifImage *gif;
+    QTimer *timer;
+    int frames;
+
+    float	x_angle, y_angle, z_angle;
+    int		paint_mode;
 
 	float	edge_width;
 	float	point_size;

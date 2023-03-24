@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>viewer</class>
- <widget class="QMainWindow" name="viewer">
+ <widget class="QOpenGLWidget" name="viewer">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,7 +13,15 @@
   <property name="windowTitle">
    <string>viewer</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
+  <widget class="QWidget" name="centralwidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>20</y>
+     <width>241</width>
+     <height>872</height>
+    </rect>
+   </property>
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
@@ -1220,7 +1228,6 @@ color: rgb(154, 153, 150);
        <string notr="true">QPushButton {
 	font: 700 16pt &quot;Pastelova Demo&quot;;
 	background-color: rgb(224, 170, 255);
-	color: rgb(94, 92, 100);
 
 	border-radius: 10px;
 	border-top-right-radius:0px;
@@ -1387,7 +1394,6 @@ border: 1px solid grey;
        <string notr="true">QPushButton {
 	font: 700 16pt &quot;Pastelova Demo&quot;;
 	background-color: rgb(224, 170, 255);
-	color: rgb(94, 92, 100);
 
 	border-radius: 10px;
 	border-top-right-radius:0px;
@@ -1577,7 +1583,6 @@ color: rgb(154, 153, 150);
        <string notr="true">QPushButton {
 	font: 700 16pt &quot;Pastelova Demo&quot;;
 	background-color: rgb(224, 170, 255);
-	color: rgb(94, 92, 100);
 
 	border-radius: 10px;
 	border-top-right-radius:0px;
@@ -1619,7 +1624,16 @@ QPushButton:pressed {
    </widget>
    <addaction name="menuFile"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>3</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
   <action name="actionSave_as_GIF">
    <property name="text">
     <string>Save as GIF</string>
