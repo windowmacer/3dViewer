@@ -1,8 +1,6 @@
 #ifndef VIEWER_H
 #define VIEWER_H
 
-// #include <QMainWindow>
-
 #include <QWidget>          // library for using widgets
 #include <QOpenGLWidget>    // library for using widgets
 #include <QColor>           // library for using colors
@@ -11,9 +9,9 @@
 #include <QSettings>        // library for saving and restoring settings
 #include <QTimer>           // library for time counting
 #include <QScrollArea>      //
-#include <QMouseEvent>      //
-#include <QWheelEvent>      //
-#include <QKeyEvent>        //
+#include <QMouseEvent>      // library for receiving mouse signals
+#include <QWheelEvent>      // library for receiving mouse wheel signals
+#include <QKeyEvent>        // library for receiving keyboard signals
 
 #include "QtGifImage/gifimage/qgifimage.h" // library for creating GIF-images
 
@@ -42,6 +40,7 @@ extern "C" {
 #define CIRCLE 1
 #define SQUARE 2
 #define NOVERTEX 3
+#define AVERTEX 4
 
 // lines to save the definition
 #define PROJECTION_TYPE "projectionType"
@@ -125,9 +124,17 @@ private:
 
     void    initDefaultValues(); // initialization of the initial values of the program
 
+    int     projectionType; // замена paint_mode
+    int     edgeType; // замена edge_type
+    int     edgeWidth; // замена edge_width
+    int     pointType; // замена point_type
+    int     pointSize; // замена point_size
+    int     pointVisibility; // замена point_visibility
+    void    updateValues();
+
+
     float	x_angle, y_angle, z_angle;
     int		paint_mode;
-
 	float	edge_width;
 	float	point_size;
 	int		edge_type, point_type, point_visibility;
