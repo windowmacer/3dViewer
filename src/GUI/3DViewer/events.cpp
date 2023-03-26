@@ -4,8 +4,8 @@ void viewer::mouseMoveEvent(QMouseEvent *cursorPosition) {
     if (leftButton) {
         double rotateX = (cursorPosition->pos().x() - clickPosition.x()) / 10.0;
         double rotateY = (cursorPosition->pos().y() - clickPosition.y()) / 10.0;
-        rotateModel(&model, rotateX, X);
-        rotateModel(&model, rotateY, Y);
+        rotateModel(&model, rotateY, X);
+        rotateModel(&model, rotateX, Y);
     } else if (rightButton) {
         double moveX = (cursorPosition->pos().x() - clickPosition.x()) / 10000.0;
         double moveY = (cursorPosition->pos().y() - clickPosition.y()) / 10000.0;
