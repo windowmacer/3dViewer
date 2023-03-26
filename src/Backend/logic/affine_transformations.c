@@ -3,12 +3,6 @@
 
 #include "parser_obj.h"
 
-#define PI 3.14159265358979323846f
-
-#define X 1
-#define Y 2
-#define Z 3
-
 void moveModel(structRoot *model, double stepX, double stepY, double stepZ) {
     for (int i = 0; i < model->countVertex * 3; i += 3) {
         model->vertexCoord[i] += stepX;
@@ -37,7 +31,7 @@ void rotateModel(structRoot *model, double angle, int axis) {
 }
 
 void scaleModel(structRoot *model, double scale) {
-    for (int i = 0; i < model->countVertex; i++) {
+    for (int i = 0; i < model->countVertex * 3; i++) {
         model->vertexCoord[i] += scale / 100 * model->vertexCoord[i];
     }
 }

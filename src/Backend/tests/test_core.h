@@ -3,8 +3,9 @@
 
 #include <check.h>
 
-#include "../logic/headerCAD.h"
+#include "../logic/parser_obj.h"
 
 Suite *st_parse(void);
+Suite *st_affine(void);
 
 #endif  // SRC_BACKEND_TESTS_TEST_CORE_H_

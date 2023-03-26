@@ -62,7 +62,8 @@ viewer::viewer(QWidget *parent) : QOpenGLWidget(parent), ui(new Ui::viewer)
 viewer::~viewer()
 {
     // saveSettings();
-    // очистить все, для чего выделялась память, если выделялась
+    if (model.vertexCoord != NULL) free(model.vertexCoord);
+    if (model.vertexIndex != NULL) free(model.vertexIndex);
     delete ui;
 }
 

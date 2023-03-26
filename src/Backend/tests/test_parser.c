@@ -1,26 +1,61 @@
 #include "test_core.h"
 
-START_TEST(TEST_PARSE1) {
-    // здесь тесты
+#include <stdio.h>
+#include <string.h>
+#include <assert.h>
+#include <sys/wait.h>
+#include <stdbool.h>
+#include <check.h>
 
-    // например:
-    // int x = 5;
-    // x += 5;
-    // ck_assert_int_eq(x, 10); где int - тип данных для сравнения, eq - equal(проверка на равенство)
-} END_TEST
+START_TEST(parseCubeVertex) {
+    structRoot object;
+    int result = parser("/home/lunarskii/project/3dViewer/src/GUI/models/cottage.obj", &object);
 
-START_TEST(TEST_PARSE2) {
-    // здесь тесты
-} END_TEST
+    ck_assert_int_eq(object.countVertex, 353);
+    ck_assert_int_eq(result, 0);
+
+    free(object.vertexCoord);
+	free(object.vertexIndex);
+}
+END_TEST
+
+START_TEST(parseCubeFacets) {
+    structRoot object;
+    int result = parser("/home/lunarskii/project/3dViewer/src/GUI/models/cube.obj", &object);
+
+    ck_assert_int_eq(object.countVertex, 8);
+    ck_assert_int_eq(result, 0);
+
+    free(object.vertexCoord);
+	free(object.vertexIndex);
+}
+END_TEST
+
+START_TEST(parseCubeInvalid) {
+    structRoot object;
+    int result = parser("models/testCubeInvalid", &object); 
+
+    ck_assert_int_eq(result, ERROR_WRONG_FILENAME_EXTENSION);
+}
+END_TEST
+
+START_TEST(parseCubeInvalidOBG) {
+    structRoot object;
+    int result = parser("models/testCubeInvalid.obj", &object);
+
+    ck_assert_int_eq(result, ERROR_WRONG_FILENAME);
+}
+END_TEST
 
 Suite *st_parse(void) {
-  Suite *s = suite_create("st_parse");
-  TCase *tc = tcase_create("parse_tc");
+    Suite *s = suite_create("st_parse");
+    TCase *tc = tcase_create("parse_tc");
 
-    // tc - название группы тестов, TEST_PARSE* - название теста
-  tcase_add_test(tc, TEST_PARSE1);
-  tcase_add_test(tc, TEST_PARSE2);
+    tcase_add_test(tc, parseCubeVertex);
+    tcase_add_test(tc, parseCubeFacets);
+    tcase_add_test(tc, parseCubeInvalid);
+    tcase_add_test(tc, parseCubeInvalidOBG);
 
-  suite_add_tcase(s, tc);
-  return s;
+    suite_add_tcase(s, tc);
+    return s;
 }

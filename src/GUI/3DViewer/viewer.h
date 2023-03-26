@@ -90,7 +90,6 @@ private:
 	void 	initializeGL() override;
 	void 	resizeGL(int w, int h) override;
     void 	paintGL() override;
-    void 	pointSettings();
     void    updateValues();
     void    setProjectionType();
     void    setEdges();

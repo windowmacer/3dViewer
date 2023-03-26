@@ -1,7 +1,7 @@
 #include "test_core.h"
 
 int main(void) {
-  Suite *list[] = {st_parse(), NULL};
+  Suite *list[] = {st_parse(), st_affine(), NULL};
   for (Suite **current_testcase = list; *current_testcase != NULL;
        current_testcase++) {
     SRunner *sr = srunner_create(*current_testcase);

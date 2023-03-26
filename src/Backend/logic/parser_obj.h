@@ -9,6 +9,12 @@
 # include <stdlib.h>
 # include <string.h>
 # include <math.h>
+
+#define PI 3.14159265358979323846f
+
+#define X 1
+#define Y 2
+#define Z 3
  
 typedef struct stRoot {
 	double		*vertexCoord;

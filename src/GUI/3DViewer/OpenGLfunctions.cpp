@@ -36,26 +36,17 @@ void viewer::paintGL() {
         glRotated(y_angle, 0, 1, 0);
         glRotated(z_angle, 0, 0, 1);
 
+        for (int i = 0; i < model.countVertex * 3; i++) {
+            printf("model.coord = %f\n", model.vertexCoord[i]);
+        }
+        for (int i = 0; i < model.countIndex; i++) {
+            printf("model.index = %ld\n", model.vertexIndex[i]);
+        }
+
         setEdges();
         if (pointVisibility == AVERTEX) setVertices();
         glDisableClientState(GL_VERTEX_ARRAY);
     }
-}
-
-void viewer::pointSettings() {
-    // glEnableClientState(GL_VERTEX_ARRAY);
-
-    glPointSize(pointSize);
-    glColor3f(vertexColor.redF(), vertexColor.greenF(), vertexColor.blueF());
-
-    if (pointType == CIRCLE) {
-        glEnable(GL_POINT_SMOOTH);
-        glDrawArrays(GL_POINTS, 0, model.countVertex);
-        glDisable(GL_POINT_SMOOTH);
-    } else {
-        glDrawArrays(GL_POINTS, 0, model.countVertex);
-    }
-    // glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void viewer::updateValues() {
@@ -97,7 +88,7 @@ void viewer::setEdges() {
 
     glLineWidth(edgeWidth); // setting the edge thickness
     glColor3f(edgeColor.redF(), edgeColor.greenF(), edgeColor.blueF()); // setting the edge color
-    glDrawElements(GL_LINES, model.countIndex, GL_UNSIGNED_INT, model.vertexIndex); //переработать парсер
+    glDrawElements(GL_LINES, model.countIndex, GL_UNSIGNED_INT, model.vertexIndex);
 }
 
 void viewer::setVertices() {
