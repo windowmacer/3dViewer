@@ -30,7 +30,7 @@ static void	edgesParser(structRoot	*root, char	*strRead) {
 				first_index = temp_index;
 				root->vertexIndex = realloc(root->vertexIndex, countIndex * sizeof(long));
 				if (root->vertexIndex == NULL) {
-					root->error = 3;
+					root->error = MEMORY_ALLOCATION_ERROR;
 					return ;
 				}
 				root->vertexIndex[countIndex - 1] = temp_index;
@@ -39,7 +39,7 @@ static void	edgesParser(structRoot	*root, char	*strRead) {
 				countIndex++;
 				root->vertexIndex = realloc(root->vertexIndex, countIndex * sizeof(long));
 				if (root->vertexIndex == NULL) {
-					root->error = 3;
+					root->error = MEMORY_ALLOCATION_ERROR;
 					return ;
 				}
       			root->vertexIndex[countIndex - 2] = temp_index;
@@ -52,7 +52,7 @@ static void	edgesParser(structRoot	*root, char	*strRead) {
 	countIndex++;
 	root->vertexIndex = realloc(root->vertexIndex, countIndex * sizeof(long));
 	if (root->vertexIndex == NULL) {
-		root->error = 3;
+		root->error = MEMORY_ALLOCATION_ERROR;
 		return ;
 	}
 	root->vertexIndex[countIndex - 1] = first_index;
@@ -62,7 +62,7 @@ static void	edgesParser(structRoot	*root, char	*strRead) {
 static void	setCoordToVertexArray(structRoot	*root, double	*coord_temp, long countVertex) {
 	root->vertexCoord = realloc(root->vertexCoord, countVertex * sizeof(double));
 	if(root->vertexCoord == NULL) {
-		root->error = 3;
+		root->error = MEMORY_ALLOCATION_ERROR;
 		return ;
 	}
     root->vertexCoord[countVertex - 3] = coord_temp[0];
@@ -129,7 +129,7 @@ static void	mainParsing(char *filename, structRoot *root) {
 		return ;
 	}
 	handleError("failed to open the file\n", root);
-	root->error = 2;
+	root->error = ERROR_WRONG_FILENAME;
 	return ;
 }
 
