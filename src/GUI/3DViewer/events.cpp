@@ -2,18 +2,17 @@
 
 void viewer::mouseMoveEvent(QMouseEvent *cursorPosition) {
     if (leftButton) {
-        double rotateX = (cursorPosition->pos().x() - clickPosition.x()) / 10;
-        double rotateY = (cursorPosition->pos().y() - clickPosition.y()) / 10;
-        // rotateModel(&model, rotateX, X);
-        // rotateModel(&model, rotateY, Y);
+        double rotateX = (cursorPosition->pos().x() - clickPosition.x()) / 10.0;
+        double rotateY = (cursorPosition->pos().y() - clickPosition.y()) / 10.0;
+        rotateModel(&model, rotateX, X);
+        rotateModel(&model, rotateY, Y);
     } else if (rightButton) {
         double moveX = (cursorPosition->pos().x() - clickPosition.x()) / 10000.0;
         double moveY = (cursorPosition->pos().y() - clickPosition.y()) / 10000.0;
-        // moveModel(&model, moveX, X);
-        // moveModel(&model, moveY, Y);
+        moveModel(&model, moveY, moveX, 0);
     }
 
-    // update();
+    update();
 }
 
 void viewer::mousePressEvent(QMouseEvent *event) {
@@ -32,12 +31,8 @@ void viewer::mouseReleaseEvent(QMouseEvent *cursorPosition) {
 }
 
 void viewer::wheelEvent(QWheelEvent *event) {
-    // сначала нужен прототип scaleModel()
-    // double scaleValue = event->angleDelta().y() >= 0 ? 0 : 0;
-
-    // scaleModel(&model, scaleValue);
-
-    // update();
+    scaleModel(&model, event->angleDelta().y() >= 0 ? 10 : -10);
+    update();
 }
 
 void viewer::keyPressEvent(QKeyEvent *event) {
