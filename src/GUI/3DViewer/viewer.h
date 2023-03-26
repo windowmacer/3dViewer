@@ -18,7 +18,7 @@
 #ifdef __cplusplus
 extern "C" {
    #endif
-   #include "../../Backend/logic/headerCAD.h"
+   #include "../../Backend/logic/parser_obj.h"
    #ifdef __cplusplus
 }
 #endif
@@ -88,10 +88,11 @@ private:
 	void 	initializeGL() override;
 	void 	resizeGL(int w, int h) override;
     void 	paintGL() override;
-
-    //
-	void 	pointSettings();
-	void	applyNewSettings();
+    void 	pointSettings();
+    void    updateValues();
+    void    setProjectionType();
+    void    setEdges();
+    void    setVertices();
 
     // methods for saving and restoring settings
     QSettings *lastSettings;
@@ -124,20 +125,15 @@ private:
 
     void    initDefaultValues(); // initialization of the initial values of the program
 
-    int     projectionType; // замена paint_mode
-    int     edgeType; // замена edge_type
-    int     edgeWidth; // замена edge_width
-    int     pointType; // замена point_type
-    int     pointSize; // замена point_size
-    int     pointVisibility; // замена point_visibility
-    void    updateValues();
+    int     projectionType;
+    int     edgeType;
+    int     edgeWidth;
+    int     pointType;
+    int     pointSize;
+    int     pointVisibility;
 
 
     float	x_angle, y_angle, z_angle;
-    int		paint_mode;
-	float	edge_width;
-	float	point_size;
-	int		edge_type, point_type, point_visibility;
 };
 
 #endif // VIEWER_H

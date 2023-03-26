@@ -45,15 +45,15 @@ viewer::viewer(QWidget *parent) : QOpenGLWidget(parent), ui(new Ui::viewer)
     connect(ui->pushButton_vertexColor, SIGNAL(clicked()), this, SLOT(setColor()));
 
     // connecting buttons to synchronize model updates
-//    connect(ui->radioButton_parallel_type, SIGNAL(clicked()), this, SLOT(update()));
-//    connect(ui->radioButton_central_type, SIGNAL(clicked()), this, SLOT(update()));
-//    connect(ui->radioButton_edgeType_dashed, SIGNAL(clicked()), this, SLOT(update()));
-//    connect(ui->radioButton_edgeType_solid, SIGNAL(clicked()), this, SLOT(update()));
-//    connect(ui->radioButton_vertexType_circle, SIGNAL(clicked()), this, SLOT(update()));
-//    connect(ui->radioButton_vertexType_square, SIGNAL(clicked()), this, SLOT(update()));
-//    connect(ui->radioButton_vertexType_novertex, SIGNAL(clicked()), this, SLOT(update()));
-//    connect(ui->edgeThickness, SIGNAL(valueChanged(int)), this, SLOT(update()));
-//    connect(ui->vertexSize, SIGNAL(valueChanged(int)), this, SLOT(update()));
+    connect(ui->radioButton_parallel_type, SIGNAL(clicked()), this, SLOT(update()));
+    connect(ui->radioButton_central_type, SIGNAL(clicked()), this, SLOT(update()));
+    connect(ui->radioButton_edgeType_dashed, SIGNAL(clicked()), this, SLOT(update()));
+    connect(ui->radioButton_edgeType_solid, SIGNAL(clicked()), this, SLOT(update()));
+    connect(ui->radioButton_vertexType_circle, SIGNAL(clicked()), this, SLOT(update()));
+    connect(ui->radioButton_vertexType_square, SIGNAL(clicked()), this, SLOT(update()));
+    connect(ui->radioButton_vertexType_novertex, SIGNAL(clicked()), this, SLOT(update()));
+    connect(ui->edgeThickness, SIGNAL(valueChanged(int)), this, SLOT(update()));
+    connect(ui->vertexSize, SIGNAL(valueChanged(int)), this, SLOT(update()));
 
     // lastSettings = new QSettings("SAVE_3DVIEWER", "3DViewer", this);
     // restoreSettings();
@@ -75,7 +75,6 @@ void viewer::initDefaultValues() {
     // initializing the model
     model.vertexCoord = 0;
     model.vertexIndex = 0;
-    model.countLines = 0;
     model.countVertex = 0;
 }
 
@@ -99,12 +98,11 @@ void viewer::on_pushButton_selectFile_clicked() {
     if (filePath != "") {
         char *path = (filePath.toLocal8Bit()).data();
 
-        parcer(path, &model); // parse function
+        parser(path, &model); // parse function
 
         ui->fileName->setText((QFileInfo (filePath)).fileName());
-    //    ui->numberOfVertices->setText(QString::number(model.vertices));
-    //    ui->numberOfEdges->setText(QString::number(model.edges));
-        paint_mode = 0;
+        ui->numberOfVertices->setText(QString::number(model.countVertex));
+        // ui->numberOfEdges->setText(QString::number(model.edges));
 
         update();
     }
@@ -115,31 +113,18 @@ void viewer::moving() {
     QPushButton *button = (QPushButton *)sender();
     QString buttonText = button->text();
 
-    // нужно переделать прототипы функции, например moveModel(struct *model, double step, int axis);,
-    // где step = step * shift, а положительная или отрицательная сторона выбирается по знаку step
-
-    // prototype function: moveModel(struct *model, double step, int axis, int shift);
-    // axis - (X, Y, Z), where X = 1, Y = 2, Z = 3;
     if (buttonText == "⇦") {
-        // shift function
-        // x-coordinate
-        // moveModel(&model, step, X);
+        moveModel(&model, -step, 0, 0);
     } else if (buttonText == "⇨") {
-        // shift function
-        // x-coordinate
-        // moveModel(&model, step, X);
+        moveModel(&model, step, 0, 0);
     } else if (buttonText == "⇩") {
-        // shift function
-        // y-coordinate
+        moveModel(&model, 0, -step, 0);
     } else if (buttonText == "⇧") {
-        // shift function
-        // y-coordinate
+        moveModel(&model, 0, step, 0);
     } else if (buttonText == "⬁") {
-        // shift function
-        // z-coordinate
+        moveModel(&model, 0, 0, -step);
     } else if (buttonText == "⬂") {
-        // shift function
-        // z-coordinate
+        moveModel(&model, 0, 0, step);
     }
 
     update();
@@ -151,17 +136,17 @@ void viewer::rotation() {
     QString buttonText = button->text();
 
     if (buttonText == "⇦") {
-        // rotation function
+        rotateModel(&model, -angle, X);
     } else if (buttonText == "⇨") {
-        // rotation function
+        rotateModel(&model, angle, X);
     } else if (buttonText == "⇩") {
-        // rotation function
+        rotateModel(&model, -angle, Y);
     } else if (buttonText == "⇧") {
-        // rotation function
+        rotateModel(&model, angle, Y);
     } else if (buttonText == "⬁") {
-        // rotation function
+        rotateModel(&model, -angle, Z);
     } else if (buttonText == "⬂") {
-        // rotation function
+        rotateModel(&model, angle, Z);
     }
 
     update();
@@ -172,13 +157,10 @@ void viewer::scaling() {
     QPushButton *button = (QPushButton *)sender();
     QString buttonText = button->text();
 
-    // prototype function: scaleModel(struct *model, int scale, int shift);
-    // scale = (percent), the value by which the model is scaled
-    // shift = (-1, 1), where digit = coordinate shift
     if (buttonText == "-") {
-        // scaleModel(&model, scale, -1);
+        scaleModel(&model, -scale);
     } else {
-        // scaleModel(&model, scale, 1);
+        scaleModel(&model, scale);
     }
 
     update();
