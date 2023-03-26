@@ -78,7 +78,6 @@ $(OBJ_TEST_DIR)%.o: $(SRC_TEST_DIR)%.c
 $(OBJ_GIFLIB_DIR)%.o: $(SRC_GIFLIB_DIR)%.c
 	$(CC) -c $< -o $@
 
-# переписать клин под наш мейк
 clean:
 	# rm -rf ../obj/
 	rm -rf $(OBJ_PROJECT_DIR)*
