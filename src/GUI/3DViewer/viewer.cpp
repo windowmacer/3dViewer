@@ -19,7 +19,7 @@ viewer::viewer(QWidget *parent) : QOpenGLWidget(parent), ui(new Ui::viewer)
 
 
 
-//     connecting the movement buttons
+    // connecting the movement buttons
     connect(ui->pushButton_moving_x_minus, SIGNAL(clicked()), this, SLOT(moving()));
     connect(ui->pushButton_moving_x_plus, SIGNAL(clicked()), this, SLOT(moving()));
     connect(ui->pushButton_moving_y_minus, SIGNAL(clicked()), this, SLOT(moving()));
@@ -73,8 +73,9 @@ void viewer::initDefaultValues() {
     vertexColor.setRgb(255, 0, 0);
 
     // initializing the model
-    model.vertexCoord = 0;
-    model.vertexIndex = 0;
+    model.vertexCoord = NULL;
+    model.vertexIndex = NULL;
+    model.countIndex = 0;
     model.countVertex = 0;
 }
 
@@ -111,19 +112,18 @@ void viewer::on_pushButton_selectFile_clicked() {
 void viewer::moving() {
     double step = ui->step->value();
     QPushButton *button = (QPushButton *)sender();
-    QString buttonText = button->text();
 
-    if (buttonText == "⇦") {
+    if (button == ui->pushButton_moving_x_minus) {
         moveModel(&model, -step, 0, 0);
-    } else if (buttonText == "⇨") {
+    } else if (button == ui->pushButton_moving_x_plus) {
         moveModel(&model, step, 0, 0);
-    } else if (buttonText == "⇩") {
+    } else if (button == ui->pushButton_moving_y_minus) {
         moveModel(&model, 0, -step, 0);
-    } else if (buttonText == "⇧") {
+    } else if (button == ui->pushButton_moving_y_plus) {
         moveModel(&model, 0, step, 0);
-    } else if (buttonText == "⬁") {
+    } else if (button == ui->pushButton_moving_z_minus) {
         moveModel(&model, 0, 0, -step);
-    } else if (buttonText == "⬂") {
+    } else if (button == ui->pushButton_moving_z_plus) {
         moveModel(&model, 0, 0, step);
     }
 
@@ -133,19 +133,18 @@ void viewer::moving() {
 void viewer::rotation() {
     int angle = ui->angle->value();
     QPushButton *button = (QPushButton *)sender();
-    QString buttonText = button->text();
 
-    if (buttonText == "⇦") {
+    if (button == ui->pushButton_rotation_x_minus) {
         rotateModel(&model, -angle, X);
-    } else if (buttonText == "⇨") {
+    } else if (button == ui->pushButton_rotation_x_plus) {
         rotateModel(&model, angle, X);
-    } else if (buttonText == "⇩") {
+    } else if (button == ui->pushButton_rotation_y_minus) {
         rotateModel(&model, -angle, Y);
-    } else if (buttonText == "⇧") {
+    } else if (button == ui->pushButton_rotation_y_plus) {
         rotateModel(&model, angle, Y);
-    } else if (buttonText == "⬁") {
+    } else if (button == ui->pushButton_rotation_z_minus) {
         rotateModel(&model, -angle, Z);
-    } else if (buttonText == "⬂") {
+    } else if (button == ui->pushButton_rotation_z_plus) {
         rotateModel(&model, angle, Z);
     }
 

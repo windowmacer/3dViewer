@@ -1166,10 +1166,4 @@ DGifSlurp(GifFileType *GifFile)
     return (GIF_OK);
 }
 
-void func() {};
-// yup
 /* end */
-
-
-
-
