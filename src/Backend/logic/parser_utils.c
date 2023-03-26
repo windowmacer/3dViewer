@@ -28,7 +28,7 @@ void	checkType(char *nameFile, structRoot *root) {
 	len = strlen(nameFile);
 	if (!checkFormat(nameFile, ".obj", len)) {
 		handleError("non-valid file extension\n", root);
-		root->error = 1;
+		root->error = ERROR_WRONG_FILENAME_EXTENSION;
 		return ;
 	}
 }
