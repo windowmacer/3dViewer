@@ -109,7 +109,7 @@ static void	vertexParser(structRoot	*root, char	*strRead) {
 
 static void	mainParsing(char *filename, structRoot *root) {
 	FILE	*filePtr;
-	char	strRead[1000] = "";
+	char	strRead[10000] = "";
 
 	filePtr = fopen(filename, "r");
 	if (filePtr != NULL) {
