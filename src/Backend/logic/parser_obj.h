@@ -11,7 +11,7 @@
 # include <math.h>
  
 typedef struct stRoot {
-	float		*vertexCoord;
+	double		*vertexCoord;
 	long		*vertexIndex; 
 	long		countIndex;
 	long		countVertex;

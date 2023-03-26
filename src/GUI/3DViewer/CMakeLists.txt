@@ -3,7 +3,8 @@ cmake_minimum_required(VERSION 3.5)
 project(3DViewer VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_PREFIX_PATH "/usr/local/qt;/opt/qt;$ENV{QT_INSTALL_DIR};$ENV{QTDIR};~/Qt/")
-set(CMAKE_PREFIX_PATH "/home/lunarskii/Qt/6.4.2/gcc_64/lib/cmake")
+#set(CMAKE_PREFIX_PATH "/home/lunarskii/Qt/6.4.2/gcc_64/lib/cmake")
+#set(CMAKE_PREFIX_PATH "/Users/Ivan/Qt/6.4.2/Src/qtbase/lib/cmake")
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
