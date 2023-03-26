@@ -28,7 +28,8 @@ install: $(LIBRARY) $(GIF_LIBRARY)
 	mv $(LIBRARY) GUI/3DViewer/lib$(LIBRARY)
 	cmake -S GUI/3DViewer -B build
 	make -C build
-	cp build/3DViewer $(APP_NAME)
+#	cp build/3DViewer $(APP_NAME)
+	cp build/3DViewer.app/Contents/MacOS/3DViewer $(APP_NAME)
 
 uninstall: clean
 	rm -rf ../obj/

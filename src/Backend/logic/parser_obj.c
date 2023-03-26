@@ -126,6 +126,7 @@ static void	mainParsing(char *filename, structRoot *root) {
 			}
 		}
 		fclose(filePtr);
+		root->countVertex /= 3;
 		return ;
 	}
 	handleError("failed to open the file\n", root);

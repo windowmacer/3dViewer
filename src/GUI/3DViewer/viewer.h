@@ -55,6 +55,8 @@ extern "C" {
 #define ANGLE "angle"
 #define SCALE "scale"
 
+# define GL_SILENCE_DEPRECATION
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class viewer; }
 QT_END_NAMESPACE

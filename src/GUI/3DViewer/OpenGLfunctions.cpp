@@ -27,7 +27,7 @@ void viewer::paintGL() {
 
     updateValues();
     if (projectionType) {
-        glVertexPointer(3, GL_FLOAT, 0, model.vertexCoord);
+        glVertexPointer(3, GL_DOUBLE, 0, model.vertexCoord);
         glEnableClientState(GL_VERTEX_ARRAY);
         setProjectionType();
 
