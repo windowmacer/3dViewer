@@ -26,14 +26,14 @@ static void	edgesParser(structRoot	*root, char	*strRead) {
 			check_order++;
 			countIndex++;
 			temp_index--;
+			root->vertexIndex = realloc(root->vertexIndex, countIndex * sizeof(long));
+			if (root->vertexIndex == NULL) {
+				root->error = MEMORY_ALLOCATION_ERROR;
+				return ;
+			}
+			root->vertexIndex[countIndex - 1] = temp_index;
 			if (check_order == 1) {
 				first_index = temp_index;
-				root->vertexIndex = realloc(root->vertexIndex, countIndex * sizeof(long));
-				if (root->vertexIndex == NULL) {
-					root->error = MEMORY_ALLOCATION_ERROR;
-					return ;
-				}
-				root->vertexIndex[countIndex - 1] = temp_index;
 			}
 			else {
 				countIndex++;
@@ -42,7 +42,6 @@ static void	edgesParser(structRoot	*root, char	*strRead) {
 					root->error = MEMORY_ALLOCATION_ERROR;
 					return ;
 				}
-      			root->vertexIndex[countIndex - 2] = temp_index;
         		root->vertexIndex[countIndex - 1] = temp_index;
 			}
 			temp_index = 0;
@@ -57,6 +56,11 @@ static void	edgesParser(structRoot	*root, char	*strRead) {
 	}
 	root->vertexIndex[countIndex - 1] = first_index;
 	root->countIndex = countIndex;
+
+	for (int i = 0; i < countIndex; i++) {
+		printf("%ld\n", root->vertexIndex[i]);
+	}
+	printf("\n\n%ld\n\n", countIndex);
 }
 
 static void	setCoordToVertexArray(structRoot	*root, double	*coord_temp, long countVertex) {
