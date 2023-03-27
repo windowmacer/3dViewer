@@ -74,8 +74,8 @@ void viewer::initDefaultValues() {
     vertexColor.setRgb(255, 0, 0);
 
     // initializing the model
-    model.vertexCoord = NULL;
-    model.vertexIndex = NULL;
+    model.vertexCoord = {0};
+    model.vertexIndex = {0};
     model.countIndex = 0;
     model.countVertex = 0;
 }
@@ -104,7 +104,7 @@ void viewer::on_pushButton_selectFile_clicked() {
 
         ui->fileName->setText((QFileInfo (filePath)).fileName());
         ui->numberOfVertices->setText(QString::number(model.countVertex));
-        // ui->numberOfEdges->setText(QString::number(model.edges));
+        ui->numberOfEdges->setText(QString::number(model.countIndex / 2));
 
         update();
     }
