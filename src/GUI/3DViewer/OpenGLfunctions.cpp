@@ -36,13 +36,6 @@ void viewer::paintGL() {
         glRotated(y_angle, 0, 1, 0);
         glRotated(z_angle, 0, 0, 1);
 
-        for (int i = 0; i < model.countVertex * 3; i++) {
-            printf("model.coord = %f\n", model.vertexCoord[i]);
-        }
-        for (int i = 0; i < model.countIndex; i++) {
-            printf("model.index = %ld\n", model.vertexIndex[i]);
-        }
-
         setEdges();
         if (pointVisibility == AVERTEX) setVertices();
         glDisableClientState(GL_VERTEX_ARRAY);
