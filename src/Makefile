@@ -22,16 +22,16 @@ OBJ_PROJECT				:= $(patsubst $(SRC_PROJECT_DIR)%.c,$(OBJ_PROJECT_DIR)%.o,$(SRC_P
 OBJ_TEST				:= $(patsubst $(SRC_TEST_DIR)%.c,$(OBJ_TEST_DIR)%.o,$(SRC_TEST))
 OBJ_GIFLIB				:= $(patsubst $(SRC_GIFLIB_DIR)%.c,$(OBJ_GIFLIB_DIR)%.o,$(SRC_GIFLIB))
 
-all: install launch_app gcov_report uninstall clean
+all: install launch_app uninstall clean
 
 install: $(LIBRARY) $(GIF_LIBRARY)
 	mv $(LIBRARY) GUI/3DViewer/lib$(LIBRARY)
-	cmake -S GUI/3DViewer -B build
-	make -C build
-#	cp build/3DViewer $(APP_NAME)
-	cp build/3DViewer.app/Contents/MacOS/3DViewer $(APP_NAME)
+	chmod +x install.sh
+	./install.sh
 
 uninstall: clean
+	chmod +x uninstall.sh
+	./uninstall.sh
 	rm -rf ../obj/
 	rm -rf build
 	rm -rf GUI/3DViewer/lib$(LIBRARY)
@@ -42,7 +42,6 @@ uninstall: clean
 dvi:
 	open README.md
 
-# посмотреть еще варианты архивации
 dist: install
 	tar -czf $(APP_NAME).tar.gz --directory=build/ .
 
@@ -105,4 +104,4 @@ clang:
 	clang-format --style=google -i GUI/3DViewer/*.cpp
 	clang-format --style=google -i GUI/3DViewer/*.h
 
-.PHONY: all clean rebuild open clang valgrind docker
+.PHONY: all clean rebuild open clang valgrind docker install
