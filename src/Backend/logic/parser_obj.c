@@ -53,11 +53,6 @@ static void	edgesParser(structRoot	*root, char	*strRead) {
 	}
 	root->vertexIndex[countIndex - 1] = first_index;
 	root->countIndex = countIndex;
-
-	// for (int i = 0; i < countIndex; i++) {
-	// 	printf("%ld\n", root->vertexIndex[i]);
-	// }
-	// printf("\n\n%ld\n\n", countIndex);
 }
 
 static void	setCoordToVertexArray(structRoot	*root, double	*coord_temp, long countVertex) {

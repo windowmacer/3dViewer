@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <math.h>
-
 #include "parser_obj.h"
 
 void moveModel(structRoot *model, double stepX, double stepY, double stepZ) {
