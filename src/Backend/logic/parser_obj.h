@@ -18,7 +18,7 @@
  
 typedef struct stRoot {
 	double		*vertexCoord;
-	long		*vertexIndex; 
+	int		*vertexIndex; 
 	long		countIndex;
 	long		countVertex;
 	int			error;

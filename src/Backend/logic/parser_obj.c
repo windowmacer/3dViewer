@@ -1,10 +1,7 @@
 #include "parser_obj.h"
 
 static int	isNum(char	c) {
-	if (('0' <= c && c <= '9')) {
-		return (0);
-	}
-	return (1);
+	return c >= '0' && c <= '9';
 }
 
 static void	edgesParser(structRoot	*root, char	*strRead) {
@@ -17,7 +14,7 @@ static void	edgesParser(structRoot	*root, char	*strRead) {
 
 	for (size_t i = 2; i < strlen(strRead); i++) {
 		check_space = strRead[i - 1];
-		while (!isNum(strRead[i]) && check_space == ' ') {
+		while (isNum(strRead[i]) && check_space == ' ') {
 			check_num = 1;
 			temp_index = temp_index * 10 + (strRead[i] - '0');
 			i++;
@@ -57,10 +54,10 @@ static void	edgesParser(structRoot	*root, char	*strRead) {
 	root->vertexIndex[countIndex - 1] = first_index;
 	root->countIndex = countIndex;
 
-	for (int i = 0; i < countIndex; i++) {
-		printf("%ld\n", root->vertexIndex[i]);
-	}
-	printf("\n\n%ld\n\n", countIndex);
+	// for (int i = 0; i < countIndex; i++) {
+	// 	printf("%ld\n", root->vertexIndex[i]);
+	// }
+	// printf("\n\n%ld\n\n", countIndex);
 }
 
 static void	setCoordToVertexArray(structRoot	*root, double	*coord_temp, long countVertex) {
@@ -82,7 +79,7 @@ static void	vertexParser(structRoot	*root, char	*strRead) {
 	int		coord_num = 0;
 
 	for (size_t	i = 2; i < strlen(strRead); i++) {
-		while (!isNum(strRead[i]) || strRead[i] == '.') {
+		while (isNum(strRead[i]) || strRead[i] == '.') {
 			if (num_pos == 0)
 				num_pos = i;
 			if (strRead[i] == '.')
