@@ -1,13 +1,14 @@
 #include "viewer.h"
 #include "./ui_viewer.h"
+#include <iostream>
 
 void viewer::initializeGL() {
     x_angle = 15;
     y_angle = 15;
-    z_angle = 1; //хмм?
+    z_angle = 1;
     glEnable(GL_DEPTH_TEST);
     glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity(); // // // // // ?
+    glLoadIdentity();
 
     // инициализирую начальный цвет viewport
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -17,11 +18,13 @@ void viewer::resizeGL(int w, int h) {
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
+    resize(1440, 1080);
 }
 
 void viewer::paintGL() {
+    resize(1440, 1080);
     glClearColor(backgroundColor.redF(), backgroundColor.greenF(), backgroundColor.blueF(), 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // нужен для того чтобы обеспечить правильную очистку буфера цвета перед рисованием.
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
@@ -31,16 +34,10 @@ void viewer::paintGL() {
         glEnableClientState(GL_VERTEX_ARRAY);
         setProjectionType();
 
-        // поворачиваем модель, для того чтобы она не казалась плоской при загрузке
-        glRotated(x_angle, 1, 0, 0);
-        glRotated(y_angle, 0, 1, 0);
-        glRotated(z_angle, 0, 0, 1);
-
-        for (int i = 0; i < model.countVertex * 3; i++) {
-            printf("model.coord = %f\n", model.vertexCoord[i]);
-        }
-        for (int i = 0; i < model.countIndex; i++) {
-            printf("model.index = %ld\n", model.vertexIndex[i]);
+        if (projectionType == PARALLEL) {
+            glRotated(x_angle, 1, 0, 0);
+            glRotated(y_angle, 0, 1, 0);
+            glRotated(z_angle, 0, 0, 1);
         }
 
         setEdges();
@@ -62,8 +59,8 @@ void viewer::updateValues() {
     else
         edgeType = DASHED;
 
-    edgeWidth = (float)ui->edgeThickness->value(); // можно флоут убрать? // нет, edgeThickness - int
-    pointSize = (float)ui->vertexSize->value() * 2; // и тут флоут тоже? // и тут int
+    edgeWidth = (float)ui->edgeThickness->value();
+    pointSize = (float)ui->vertexSize->value() * 2;
 
     if (ui->radioButton_vertexType_novertex->isChecked()) {
         pointVisibility = NOVERTEX;
@@ -80,7 +77,7 @@ void viewer::updateValues() {
 void viewer::setEdges() {
     // setting the edge type
     if (edgeType == DASHED) {
-        glLineStipple(1, 0x3333); // 0x0101 - это шаблон для пунктирной линии, в котором пунктиры и промежутки имеют одинаковую длину.
+        glLineStipple(1, 0x3333); // 0x0101
         glEnable(GL_LINE_STIPPLE);
     } else if (edgeType == SOLID) {
         glDisable(GL_LINE_STIPPLE);
@@ -106,10 +103,10 @@ void viewer::setVertices() {
 
 void viewer::setProjectionType() {
     if (projectionType == PARALLEL) {
-        glOrtho(-5, 5, -5, 5, 1, 15); //значения поменять? // glOrtho(-1, 1, -1, 1, -1, 1);
-        glTranslated(0, 0, -10); // для чего-то муваем модель на -10 по z координате
+        glOrtho(-5, 8.3, -5, 5, -100, 100);
+        glTranslated(2, 0, -10);
     } else if (projectionType == CENTRAL) {
-        glFrustum(-1, 1, -1, 1, 1, 15); // glFrustum(-0.1, 0.1, -0.075, 0.075, 0.1, 100.0);
-        glTranslated(0, 0, -10); // для чего-то муваем модель на -10 по z координате
+        glFrustum(-1, 1.67, -1, 1, 1, 15);
+        glTranslated(0, 0, -10);
     }
 }
