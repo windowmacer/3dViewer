@@ -2,8 +2,8 @@
 
 void	handleError(char *s, structRoot *root) {
 	printf("Error:\n%s", s);
-	free(root->vertexCoord);
-	free(root->vertexIndex);
+	if (root->vertexCoord != NULL) free(root->vertexCoord);
+	if (root->vertexIndex != NULL) free(root->vertexIndex);
 }
 
 static int	checkFormat(char *name, char *ber, int len) {
