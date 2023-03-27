@@ -30,8 +30,6 @@ install: $(LIBRARY) $(GIF_LIBRARY)
 	./install.sh
 
 uninstall: clean
-	chmod +x uninstall.sh
-	./uninstall.sh
 	rm -rf ../obj/
 	rm -rf build
 	rm -rf GUI/3DViewer/lib$(LIBRARY)
@@ -79,7 +77,6 @@ $(OBJ_GIFLIB_DIR)%.o: $(SRC_GIFLIB_DIR)%.c
 	$(CC) -c $< -o $@
 
 clean:
-	# rm -rf ../obj/
 	rm -rf $(OBJ_PROJECT_DIR)*
 	rm -rf $(OBJ_TEST_DIR)*
 	rm -rf $(OBJ_GIFLIB_DIR)*
