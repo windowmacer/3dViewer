@@ -18,14 +18,20 @@ void rotateModel(structRoot *model, double angle, int axis) {
     
     for (int i = (axis == X) ? 1 : 0; i < model->countVertex * 3; i += 3) {
         if (axis == X) {
-            model->vertexCoord[i]     = cosValue * model->vertexCoord[i] - sinValue * model->vertexCoord[i + 1];
-            model->vertexCoord[i + 1] = sinValue * model->vertexCoord[i] + cosValue * model->vertexCoord[i + 1];
+            double y = model->vertexCoord[i];
+
+            model->vertexCoord[i]     = cosValue * y - sinValue * model->vertexCoord[i + 1];
+            model->vertexCoord[i + 1] = sinValue * y + cosValue * model->vertexCoord[i + 1];
         } else if (axis == Y) {
-            model->vertexCoord[i]     = cosValue * model->vertexCoord[i] + sinValue * model->vertexCoord[i + 2];
-            model->vertexCoord[i + 2] =-sinValue * model->vertexCoord[i] + cosValue * model->vertexCoord[i + 2];
+            double x = model->vertexCoord[i];
+
+            model->vertexCoord[i]     = cosValue * x + sinValue * model->vertexCoord[i + 2];
+            model->vertexCoord[i + 2] =-sinValue * x + cosValue * model->vertexCoord[i + 2];
         } else if (axis == Z) {
-            model->vertexCoord[i]     = cosValue * model->vertexCoord[i] - sinValue * model->vertexCoord[i + 1];
-            model->vertexCoord[i + 1] = sinValue * model->vertexCoord[i] + cosValue * model->vertexCoord[i + 1];
+            double x = model->vertexCoord[i];
+
+            model->vertexCoord[i]     = cosValue * x - sinValue * model->vertexCoord[i + 1];
+            model->vertexCoord[i + 1] = sinValue * x + cosValue * model->vertexCoord[i + 1];
         }
     }
 }
