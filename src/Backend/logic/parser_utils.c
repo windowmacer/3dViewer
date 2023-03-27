@@ -1,36 +1,34 @@
 #include "parser_obj.h"
 
-void	handleError(char *s, structRoot *root) {
-	printf("Error:\n%s", s);
-	if (root->vertexCoord != NULL) free(root->vertexCoord);
-	if (root->vertexIndex != NULL) free(root->vertexIndex);
+void handleError(char *s, structRoot *root) {
+  printf("Error:\n%s", s);
+  if (root->vertexCoord != NULL) free(root->vertexCoord);
+  if (root->vertexIndex != NULL) free(root->vertexIndex);
 }
 
-static int	checkFormat(char *name, char *ber, int len) {
-	int	i;
-	int	j;
+static int checkFormat(char *name, char *ber, int len) {
+  int i;
+  int j;
 
-	i = len - 4;
-	j = 0;
-	while (i < len)
-	{
-		if (name[i] != ber[j])
-			return (0);
-		j++;
-		i++;
-	}
-	return (1);
+  i = len - 4;
+  j = 0;
+  while (i < len) {
+    if (name[i] != ber[j]) return (0);
+    j++;
+    i++;
+  }
+  return (1);
 }
 
-void	checkType(char *nameFile, structRoot *root) {
-	int	len;
+void checkType(char *nameFile, structRoot *root) {
+  int len;
 
-	len = strlen(nameFile);
-	if (!checkFormat(nameFile, ".obj", len)) {
-		handleError("non-valid file extension\n", root);
-		root->error = ERROR_WRONG_FILENAME_EXTENSION;
-		return ;
-	}
+  len = strlen(nameFile);
+  if (!checkFormat(nameFile, ".obj", len)) {
+    handleError("non-valid file extension\n", root);
+    root->error = ERROR_WRONG_FILENAME_EXTENSION;
+    return;
+  }
 }
 
 // void	findMinMax(structRoot *root, double (*coord)[2], char c) {

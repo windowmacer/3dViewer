@@ -1,25 +1,25 @@
 #ifndef VIEWER_H
 #define VIEWER_H
 
-#include <QWidget>          // library for using widgets
-#include <QOpenGLWidget>    // library for using widgets
-#include <QColor>           // library for using colors
-#include <QFileDialog>      // library for dialog windows
-#include <QColorDialog>     // library for dialog windows
-#include <QSettings>        // library for saving and restoring settings
-#include <QTimer>           // library for time counting
-#include <QScrollArea>      //
-#include <QMouseEvent>      // library for receiving mouse signals
-#include <QWheelEvent>      // library for receiving mouse wheel signals
-#include <QKeyEvent>        // library for receiving keyboard signals
+#include <QColor>         // library for using colors
+#include <QColorDialog>   // library for dialog windows
+#include <QFileDialog>    // library for dialog windows
+#include <QKeyEvent>      // library for receiving keyboard signals
+#include <QMouseEvent>    // library for receiving mouse signals
+#include <QOpenGLWidget>  // library for using widgets
+#include <QScrollArea>    //
+#include <QSettings>      // library for saving and restoring settings
+#include <QTimer>         // library for time counting
+#include <QWheelEvent>    // library for receiving mouse wheel signals
+#include <QWidget>        // library for using widgets
 
-#include "QtGifImage/gifimage/qgifimage.h" // library for creating GIF-images
+#include "QtGifImage/gifimage/qgifimage.h"  // library for creating GIF-images
 
 #ifdef __cplusplus
 extern "C" {
-   #endif
-   #include "../../Backend/logic/parser_obj.h"
-   #ifdef __cplusplus
+#endif
+#include "../../Backend/logic/parser_obj.h"
+#ifdef __cplusplus
 }
 #endif
 
@@ -55,86 +55,89 @@ extern "C" {
 #define ANGLE "angle"
 #define SCALE "scale"
 
-# define GL_SILENCE_DEPRECATION
+#define GL_SILENCE_DEPRECATION
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class viewer; }
+namespace Ui {
+class viewer;
+}
 QT_END_NAMESPACE
 
 // public QMainWindow
 class viewer : public QOpenGLWidget {
-    Q_OBJECT
+  Q_OBJECT
 
-public:
-    viewer(QWidget *parent = nullptr);
-    ~viewer();
+ public:
+  viewer(QWidget *parent = nullptr);
+  ~viewer();
 
-private slots:
-    void on_pushButton_selectFile_clicked();
-    void moving();
-    void rotation();
-    void scaling();
-    void setColor();
+ private slots:
+  void on_pushButton_selectFile_clicked();
+  void moving();
+  void rotation();
+  void scaling();
+  void setColor();
 
-    // methods for saving images
-    void on_actionSave_as_GIF_triggered();
-    void on_actionSave_as_bmp_triggered();
-    void on_actionSave_as_jpeg_triggered();
-    void saveImage();
+  // methods for saving images
+  void on_actionSave_as_GIF_triggered();
+  void on_actionSave_as_bmp_triggered();
+  void on_actionSave_as_jpeg_triggered();
+  void saveImage();
 
-private:
-    Ui::viewer *ui;     // ui object of the viewer class
-    structRoot model;   // model
-	
-    // model rendering methods
-	void 	initializeGL() override;
-	void 	resizeGL(int w, int h) override;
-    void 	paintGL() override;
-    void    updateValues();
-    void    setProjectionType();
-    void    setEdges();
-    void    setVertices();
+ private:
+  Ui::viewer *ui;    // ui object of the viewer class
+  structRoot model;  // model
 
-    // methods for saving and restoring settings
-    QSettings *lastSettings;
-    void    saveSettings();
-    void    restoreSettings();
+  // model rendering methods
+  void initializeGL() override;
+  void resizeGL(int w, int h) override;
+  void paintGL() override;
+  void updateValues();
+  void setProjectionType();
+  void setEdges();
+  void setVertices();
 
-    // colors
-    QColor backgroundColor;
-    QColor edgeColor;
-    QColor vertexColor;
+  // methods for saving and restoring settings
+  QSettings *lastSettings;
+  void saveSettings();
+  void restoreSettings();
 
-    // GIF
-    QGifImage *gif;
-    QTimer *timer;
-    int frames;
+  // colors
+  QColor backgroundColor;
+  QColor edgeColor;
+  QColor vertexColor;
 
-    // mouse events
-    QPoint clickPosition;
-    bool leftButton;
-    bool rightButton;
-    void mouseMoveEvent(QMouseEvent *cursorPosition) override;
-    void mousePressEvent(QMouseEvent *event) override;
-    void mouseReleaseEvent(QMouseEvent *cursorPosition) override;
-    void wheelEvent(QWheelEvent *event) override;
+  // GIF
+  QGifImage *gif;
+  QTimer *timer;
+  int frames;
 
-    void keyPressEvent(QKeyEvent *event) override; // keys for calling saving gif, jpeg and bmp
+  // mouse events
+  QPoint clickPosition;
+  bool leftButton;
+  bool rightButton;
+  void mouseMoveEvent(QMouseEvent *cursorPosition) override;
+  void mousePressEvent(QMouseEvent *event) override;
+  void mouseReleaseEvent(QMouseEvent *cursorPosition) override;
+  void wheelEvent(QWheelEvent *event) override;
 
-    // удалить, если не будет использоваться
-    QScrollArea *scrollArea;
+  void keyPressEvent(
+      QKeyEvent *event) override;  // keys for calling saving gif, jpeg and bmp
 
-    void    initDefaultValues(); // initialization of the initial values of the program
+  // удалить, если не будет использоваться
+  QScrollArea *scrollArea;
 
-    int     projectionType;
-    int     edgeType;
-    int     edgeWidth;
-    int     pointType;
-    int     pointSize;
-    int     pointVisibility;
+  void
+  initDefaultValues();  // initialization of the initial values of the program
 
+  int projectionType;
+  int edgeType;
+  int edgeWidth;
+  int pointType;
+  int pointSize;
+  int pointVisibility;
 
-    float	x_angle, y_angle, z_angle;
+  float x_angle, y_angle, z_angle;
 };
 
-#endif // VIEWER_H
+#endif  // VIEWER_H
